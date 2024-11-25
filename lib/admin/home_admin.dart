@@ -1,11 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/brands/brands.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/categories.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/products.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 
 class HomeAdminPage extends StatefulWidget {
-  const HomeAdminPage({super.key});
+  final int initialIndex;
+
+  const HomeAdminPage({super.key, this.initialIndex = 0});
 
   static String routeName = "/home-admin";
 
@@ -14,6 +20,28 @@ class HomeAdminPage extends StatefulWidget {
 }
 
 class _HomeAdminPageState extends State<HomeAdminPage> {
+  int indexPage = 0;
+
+  final List pages = [
+    const HomePage(),
+    const CategoriesPage(),
+    const ProductsPage(),
+    const BrandsPage(),
+    const TransactionsPage(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    indexPage = widget.initialIndex;
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      indexPage = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,32 +53,73 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
           backgroundColor: Colors.cyan,
           automaticallyImplyLeading: false,
         ),
-        backgroundColor: const Color(0xFF232429),
-        body: Container(
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color(0xFF232428),
+          currentIndex: indexPage,
+          onTap: onPageChanged,
+          selectedItemColor: Colors.cyan,
+          unselectedItemColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: 'Categories',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.conveyor_belt),
+              label: 'Products',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.branding_watermark),
+              label: 'Brands',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt),
+              label: 'Transactions',
+            ),
+          ],
+        ),
+        body: pages[indexPage]);
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final dio = Dio();
+  int totalUsers = 0;
+  int totalBrands = 0;
+  int totalTransactions = 0;
+  int totalProducts = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getTotalUsersData();
+    getTotalProductsData();
+    getTotalBrandsData();
+    getTotalTransactionsData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF232429),
+      body: SingleChildScrollView(
+        child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
           child: Column(
             children: [
-              Text(
-                'Game',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 40,
-                    color: Colors.blue[300]),
-              ),
-              Text(
-                'Heaven',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 40,
-                    color: Colors.blue[300]),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     "Selamat Datang Admin",
@@ -62,7 +131,6 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                   SizedBox(
                     width: 300,
                     child: Align(
-                      alignment: Alignment.center,
                       child: Text(
                         'Kelola brand, kategori, produk, dan transaksi yang ada dalam toko GameHeaven.',
                         style: TextStyle(
@@ -82,112 +150,188 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                       Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 130,
-                                height: 120,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 32),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2f2f2f),
-                                  borderRadius: BorderRadius.circular(6.0),
+                              Expanded(
+                                  child: Card(
+                                color: const Color(0xFF2f2f2f),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, CategoriesPage.routeName),
-                                  child: const Column(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: [
-                                      Icon(Icons.category,
-                                          size: 32.0, color: Colors.white),
-                                      SizedBox(height: 4),
-                                      Text('Categories',
-                                          style: TextStyle(color: Colors.white))
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.yellowAccent[700],
+                                        size: 32,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "$totalUsers",
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            'Users',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 16),
-                              Container(
-                                width: 130,
-                                height: 120,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 32),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2f2f2f),
-                                  borderRadius: BorderRadius.circular(6.0),
+                              )),
+                              Expanded(
+                                  child: Card(
+                                color: const Color(0xFF2f2f2f),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: GestureDetector(
-                                  // onTap: () =>
-                                  //     Navigator.pushNamed(context, Page2.routes),
-                                  child: const Column(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: [
-                                      Icon(Icons.conveyor_belt,
-                                          size: 32.0, color: Colors.white),
-                                      SizedBox(height: 4),
-                                      Text('Products',
-                                          style: TextStyle(color: Colors.white))
+                                      Icon(
+                                        Icons.branding_watermark,
+                                        color: Colors.blueAccent[700],
+                                        size: 32,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "$totalBrands",
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            'Brands',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
-                              )
+                              )),
                             ],
                           ),
-                          const SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 130,
-                                height: 120,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 32),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2f2f2f),
-                                  borderRadius: BorderRadius.circular(6.0),
+                              Expanded(
+                                  child: Card(
+                                color: const Color(0xFF2f2f2f),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, BrandsPage.routeName),
-                                  child: const Column(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: [
-                                      Icon(Icons.branding_watermark,
-                                          size: 32.0, color: Colors.white),
-                                      SizedBox(height: 4),
-                                      Text('Brands',
-                                          style: TextStyle(color: Colors.white))
+                                      Icon(
+                                        Icons.conveyor_belt,
+                                        color: Colors.orangeAccent[700],
+                                        size: 32,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "$totalProducts",
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            'Products',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 16),
-                              Container(
-                                width: 130,
-                                height: 120,
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 32),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF2f2f2f),
-                                  borderRadius: BorderRadius.circular(6.0),
+                              )),
+                              Expanded(
+                                  child: Card(
+                                color: const Color(0xFF2f2f2f),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, TransactionsPage.routeName),
-                                  child: const Column(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: [
-                                      Icon(Icons.receipt,
-                                          size: 32.0, color: Colors.white),
-                                      SizedBox(height: 4),
-                                      Text('Transactions',
-                                          style: TextStyle(color: Colors.white))
+                                      Icon(
+                                        Icons.receipt,
+                                        color: Colors.purpleAccent[700],
+                                        size: 32,
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "$totalTransactions",
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            'Transactions',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      )
                                     ],
                                   ),
                                 ),
-                              )
+                              )),
                             ],
                           ),
                           const SizedBox(
@@ -230,6 +374,92 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  void getTotalUsersData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(getTotalUsers);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalUsers = response.data["total_users"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalTransactionsData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(getTotalTransaction);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalTransactions = response.data["total_transactions"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalBrandsData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(getTotalBrand);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalBrands = response.data["total_brands"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalProductsData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(getTotalProduct);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalProducts = response.data["total_products"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
   }
 }

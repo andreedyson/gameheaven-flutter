@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/categories.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 
 class InputCategoriesPage extends StatefulWidget {
@@ -134,7 +134,12 @@ class _InputCategoriesPageState extends State<InputCategoriesPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushNamed(context, CategoriesPage.routeName);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 1),
+          ),
+        );
       } else {
         toastification.show(
             title: Text(response.data['message']),

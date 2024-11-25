@@ -4,7 +4,6 @@ import 'package:quickalert/quickalert.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/input_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/update_categories.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -29,37 +28,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, HomeAdminPage.routeName);
-                },
-                icon: const Icon(
-                  Icons.home,
-                  color: Colors.white,
-                )),
-            const Text(
-              'Category',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, InputCategoriesPage.routeName);
-              },
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
-              ))
-        ],
-      ),
       backgroundColor: const Color(0xFF232429),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -80,6 +48,35 @@ class _CategoriesPageState extends State<CategoriesPage> {
             ),
             const SizedBox(
               height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, InputCategoriesPage.routeName);
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'Add Category',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF121212),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 24,
             ),
             Expanded(
                 child: isLoading

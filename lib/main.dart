@@ -7,6 +7,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/categori
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/input_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/update_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/products.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/input_transaction.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/update_transaction.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
         InputTransactionPage.routeName: (context) =>
             const InputTransactionPage(),
         UpdateTransactionPage.routeName: (context) =>
-            const UpdateTransactionPage()
+            const UpdateTransactionPage(),
+        ProductsPage.routeName: (context) => const ProductsPage()
       },
     ));
   }
