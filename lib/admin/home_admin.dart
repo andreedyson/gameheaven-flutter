@@ -383,16 +383,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Column(
                     children: [
-                      const Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Transaksi Terbaru",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500),
-                          )
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HomeAdminPage(initialIndex: 4),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'See All',
+                                style: TextStyle(color: Colors.grey[400]),
+                              ))
                         ],
                       ),
                       const SizedBox(

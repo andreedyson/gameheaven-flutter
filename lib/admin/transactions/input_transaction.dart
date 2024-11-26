@@ -18,7 +18,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
   bool isLoading = false;
   var dataUsers = [];
   var dataProducts = [];
-  static List statusList = ["Pending", "Processing", "Completed", "Cancelled"];
+  // static List statusList = ["Pending", "Processing", "Completed", "Cancelled"];
 
   TextEditingController qtyController = TextEditingController();
   @override
