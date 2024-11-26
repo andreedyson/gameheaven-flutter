@@ -7,6 +7,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/products.d
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 
 class HomeAdminPage extends StatefulWidget {
   final int initialIndex;
@@ -96,10 +97,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final dio = Dio();
+  bool isLoading = false;
   int totalUsers = 0;
   int totalBrands = 0;
   int totalTransactions = 0;
   int totalProducts = 0;
+
+  var highestTransactionsList = [];
 
   @override
   void initState() {
@@ -108,6 +112,7 @@ class _HomePageState extends State<HomePage> {
     getTotalProductsData();
     getTotalBrandsData();
     getTotalTransactionsData();
+    getHighestTransactions();
   }
 
   @override
@@ -117,7 +122,10 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+          // Main Column Wrapper
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
                 children: [
@@ -367,6 +375,140 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Column(
+                    children: [
+                      const Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Transaksi Terbaru",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      SizedBox(
+                        height: 550,
+                        child: isLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                itemCount: highestTransactionsList.length,
+                                itemBuilder: (context, index) {
+                                  final transaction =
+                                      highestTransactionsList[index];
+                                  String formattedDate =
+                                      formatDate(transaction['date']);
+
+                                  String formattedPrice = currencyFormatter(
+                                      transaction["total_price"]);
+
+                                  return Card(
+                                    color: Colors.grey[850],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20, horizontal: 12),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: 200,
+                                                child: Text(
+                                                  "${transaction['products']['name']}",
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "${transaction['quantity']} Item",
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 12,
+                                                  ),
+                                                  Chip(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      vertical: 2,
+                                                    ),
+                                                    label: Text(
+                                                      "${transaction['status']}",
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    backgroundColor:
+                                                        getStatusColor(
+                                                            transaction[
+                                                                'status']),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                formattedPrice,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18),
+                                              ),
+                                              Text(
+                                                formattedDate,
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                       )
                     ],
                   )
@@ -379,8 +521,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Color? getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return Colors.orange[800];
+      case 'processing':
+        return Colors.blue[800];
+      case 'completed':
+        return Colors.green[800];
+      case 'cancelled':
+        return Colors.red[800];
+      default:
+        return Colors.grey;
+    }
+  }
+
   void getTotalUsersData() async {
-    await Future.delayed(const Duration(seconds: 1));
     try {
       Response response;
 
@@ -401,7 +557,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getTotalTransactionsData() async {
-    await Future.delayed(const Duration(seconds: 1));
     try {
       Response response;
 
@@ -422,7 +577,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getTotalBrandsData() async {
-    await Future.delayed(const Duration(seconds: 1));
     try {
       Response response;
 
@@ -443,7 +597,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getTotalProductsData() async {
-    await Future.delayed(const Duration(seconds: 1));
     try {
       Response response;
 
@@ -460,6 +613,35 @@ class _HomePageState extends State<HomePage> {
           type: ToastificationType.error,
           autoCloseDuration: const Duration(seconds: 3),
           style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getHighestTransactions() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(highestTransactions);
+
+      if (response.data["status"]) {
+        highestTransactionsList = response.data["results"];
+      } else {
+        highestTransactionsList = [];
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 }

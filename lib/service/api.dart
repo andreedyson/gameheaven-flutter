@@ -1,4 +1,5 @@
 String baseUrl = "http://192.168.56.1:3000";
+String imageUrl = "$baseUrl/img/product";
 
 // Authentication
 String register = "$baseUrl/users/register";
@@ -26,6 +27,7 @@ String updateTransaction = "$baseUrl/transaction/edit";
 String deleteTransaction = "$baseUrl/transaction/delete";
 String getByUserIdTransaction = "$baseUrl/transaction/get-user";
 String getTotalTransaction = "$baseUrl/transaction/total-transactions";
+String highestTransactions = "$baseUrl/transaction/highest";
 
 // Product
 String getProducts = "$baseUrl/product/get";
