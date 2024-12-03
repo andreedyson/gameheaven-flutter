@@ -8,6 +8,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transa
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
 class HomeAdminPage extends StatefulWidget {
   final int initialIndex;
@@ -22,6 +23,7 @@ class HomeAdminPage extends StatefulWidget {
 
 class _HomeAdminPageState extends State<HomeAdminPage> {
   int indexPage = 0;
+  var userData;
 
   final List pages = [
     const HomePage(),
@@ -35,6 +37,14 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   void initState() {
     super.initState();
     indexPage = widget.initialIndex;
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    final data = await getUserData();
+    setState(() {
+      userData = data;
+    });
   }
 
   void onPageChanged(int index) {
@@ -355,6 +365,7 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   Navigator.popAndPushNamed(
                                       context, LoginPage.routeName);
+                                  clearUserData();
                                 },
                                 child: const Row(
                                   children: [

@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/register_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,9 +20,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final dio = Dio();
   bool isLoading = false;
+  var userData;
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    final data = await getUserData();
+    setState(() {
+      userData = data;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +195,12 @@ class _LoginPageState extends State<LoginPage> {
             style: ToastificationStyle.fillColored);
 
         var users = response.data["results"];
+
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('username', users["username"]);
+        await prefs.setString('full_name', users["full_name"]);
+        await prefs.setString('email', users["email"]);
+        await prefs.setString('role', users["role"].toString());
 
         if (users["role"] == 1) {
           Navigator.pushNamed(context, HomeAdminPage.routeName,
