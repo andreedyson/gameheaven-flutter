@@ -12,6 +12,16 @@ class UpdateProductsPage extends StatefulWidget {
 class _UpdateProductsPageState extends State<UpdateProductsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          'Edit Products',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        ),
+        backgroundColor: Colors.cyan,
+      ),
+      backgroundColor: const Color(0xFF232429),
+    );
   }
 }

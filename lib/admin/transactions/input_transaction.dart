@@ -28,8 +28,6 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
   String? _selectedStatus = "Pending";
   DateTime? _selectedDate;
 
-  List statusData = ["Pending", "Processing", "Completed", "Cancelled"];
-
   Future<List<ProductModel>> getProductsData() async {
     try {
       Response response;
@@ -60,11 +58,6 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
       throw Exception('Terjadi kesalahan: $e');
     }
     return [];
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
