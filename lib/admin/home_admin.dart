@@ -494,7 +494,9 @@ class _HomePageState extends State<HomePage> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.0),
+                                                      side: BorderSide.none,
                                                     ),
+                                                    elevation: 0,
                                                   )
                                                 ],
                                               )
@@ -539,7 +541,7 @@ class _HomePageState extends State<HomePage> {
   Color? getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'pending':
-        return Colors.orange[800];
+        return Colors.orange[900];
       case 'processing':
         return Colors.blue[800];
       case 'completed':

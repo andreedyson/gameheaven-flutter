@@ -1,8 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:toastification/toastification.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transactions.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/product_model.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/user_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class InputTransactionPage extends StatefulWidget {
   const InputTransactionPage({super.key});
@@ -16,16 +20,51 @@ class InputTransactionPage extends StatefulWidget {
 class _InputTransactionPageState extends State<InputTransactionPage> {
   final dio = Dio();
   bool isLoading = false;
-  var dataUsers = [];
-  var dataProducts = [];
-  // static List statusList = ["Pending", "Processing", "Completed", "Cancelled"];
 
   TextEditingController qtyController = TextEditingController();
+
+  ProductModel? _selectedProduct;
+  UserModel? _selectedUser;
+  String? _selectedStatus = "Pending";
+  DateTime? _selectedDate;
+
+  List statusData = ["Pending", "Processing", "Completed", "Cancelled"];
+
+  Future<List<ProductModel>> getProductsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getProducts);
+
+      final data = response.data["results"];
+      if (data != null) {
+        return ProductModel.fromJsonList(data);
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
+    }
+    return [];
+  }
+
+  Future<List<UserModel>> getUsersData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getUsers);
+
+      final data = response.data["results"];
+      if (data != null) {
+        return UserModel.fromJsonList(data);
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
+    }
+    return [];
+  }
+
   @override
   void initState() {
     super.initState();
-    getUsersData();
-    getProductsData();
   }
 
   @override
@@ -34,7 +73,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
-          'Input Category',
+          'Input Transaction',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.cyan,
@@ -60,17 +99,125 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
             const SizedBox(
               height: 24,
             ),
+            DropdownSearch<UserModel>(
+              popupProps: PopupProps.dialog(
+                itemBuilder:
+                    (BuildContext context, UserModel item, bool isDisabled) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ListTile(
+                      title: Text(item.fullname),
+                    ),
+                  );
+                },
+                showSearchBox: true,
+                searchFieldProps: const TextFieldProps(
+                  decoration: InputDecoration(
+                    hintText: "Search User...",
+                  ),
+                ),
+              ),
+              asyncItems: (String? filter) => getUsersData(),
+              itemAsString: (UserModel? item) => item?.userAsString() ?? "",
+              onChanged: (UserModel? data) {
+                setState(() {
+                  _selectedUser = data;
+                });
+              },
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                dropdownSearchDecoration: InputDecoration(
+                  hintText: "Search User...",
+                  prefixIcon: const Icon(Icons.person, color: Colors.white),
+                  hintStyle: const TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                ),
+              ),
+              selectedItem: _selectedUser,
+              dropdownBuilder: (BuildContext context, UserModel? selectedItem) {
+                return Text(
+                  selectedItem?.fullname ?? "Select Users",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            DropdownSearch<ProductModel>(
+              popupProps: PopupProps.dialog(
+                itemBuilder:
+                    (BuildContext context, ProductModel item, bool isDisabled) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ListTile(
+                      title: Text(item.name),
+                      leading: CircleAvatar(child: Text(item.name[0])),
+                    ),
+                  );
+                },
+                showSearchBox: true,
+                searchFieldProps: const TextFieldProps(
+                  decoration: InputDecoration(
+                    hintText: "Search Product...",
+                  ),
+                ),
+              ),
+              asyncItems: (String? filter) => getProductsData(),
+              itemAsString: (ProductModel? item) => item?.userAsString() ?? "",
+              onChanged: (ProductModel? data) {
+                setState(() {
+                  _selectedProduct = data;
+                });
+              },
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                dropdownSearchDecoration: InputDecoration(
+                  hintText: "Search User...",
+                  prefixIcon:
+                      const Icon(Icons.conveyor_belt, color: Colors.white),
+                  hintStyle: const TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 1.0),
+                  ),
+                ),
+              ),
+              selectedItem: _selectedProduct,
+              dropdownBuilder:
+                  (BuildContext context, ProductModel? selectedItem) {
+                return Text(
+                  selectedItem?.name ?? "Select Product",
+                  style: const TextStyle(
+                    color: Colors.white, // Warna teks yang dipilih
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 16,
+            ),
             TextField(
               controller: qtyController,
               decoration: InputDecoration(
                 labelText: 'Quantity',
                 border: const OutlineInputBorder(),
                 focusColor: Colors.cyan,
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
                 ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -78,6 +225,93 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
               ),
               style: const TextStyle(color: Colors.white),
               keyboardType: TextInputType.number,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                border:
+                    Border.all(color: Colors.grey, width: 1.0), // Border color
+              ),
+              child: DropdownButton<String>(
+                value: _selectedStatus,
+                hint: const Text(
+                  "Status",
+                  style: TextStyle(color: Colors.white),
+                ),
+                dropdownColor: Colors.black, // Dropdown background color
+                isExpanded: true,
+                items: const [
+                  DropdownMenuItem(
+                    value: "Pending",
+                    child:
+                        Text("Pending", style: TextStyle(color: Colors.orange)),
+                  ),
+                  DropdownMenuItem(
+                    value: "Processing",
+                    child: Text("Processing",
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                  DropdownMenuItem(
+                    value: "Completed",
+                    child: Text("Completed",
+                        style: TextStyle(color: Colors.green)),
+                  ),
+                  DropdownMenuItem(
+                    value: "Cancelled",
+                    child:
+                        Text("Cancelled", style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+                onChanged: (String? status) {
+                  setState(() {
+                    _selectedStatus = status;
+                  });
+                },
+                underline: const SizedBox(), // Remove the default underline
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(color: Colors.grey, width: 1.0),
+              ),
+              child: TextField(
+                readOnly: true, // Make it read-only to prevent manual input
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: _selectedDate ?? DateTime.now(),
+                    firstDate: DateTime(2020), // Set the first date
+                    lastDate: DateTime(2025), // Set the last date
+                  );
+
+                  if (pickedDate != null) {
+                    setState(() {
+                      _selectedDate = pickedDate; // Update the selected date
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                  hintText: _selectedDate != null
+                      ? DateFormat('MMM dd, yyyy').format(_selectedDate!)
+                      : "Select Date",
+                  hintStyle: const TextStyle(color: Colors.white, fontSize: 16),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                  border: InputBorder.none,
+                  prefixIcon: const Icon(
+                    Icons.calendar_today,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
             const SizedBox(
               height: 16,
@@ -96,13 +330,37 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
                         )
                       : ElevatedButton(
                           onPressed: () {
-                            if (qtyController.text.isEmpty) {
+                            if (_selectedUser == null) {
+                              toastification.show(
+                                  title: const Text("User harus dipilih!"),
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                  type: ToastificationType.error,
+                                  style: ToastificationStyle.fillColored);
+                            } else if (_selectedProduct == null) {
+                              toastification.show(
+                                  title: const Text("Produk harus dipilih!"),
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                  type: ToastificationType.error,
+                                  style: ToastificationStyle.fillColored);
+                            } else if (qtyController.text.isEmpty) {
                               toastification.show(
                                   context: context,
                                   title: const Text(
                                       'Jumlah Barang Tidak Boleh Kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
+                                  style: ToastificationStyle.fillColored);
+                            } else if (_selectedStatus == null) {
+                              toastification.show(
+                                  title: const Text("Status harus dipilih!"),
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                  type: ToastificationType.error,
+                                  style: ToastificationStyle.fillColored);
+                            } else if (_selectedDate == null) {
+                              toastification.show(
+                                  title: const Text("Tanggal harus dipilih!"),
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                  type: ToastificationType.error,
                                   style: ToastificationStyle.fillColored);
                             } else {
                               insertTransactionResponse();
@@ -125,46 +383,6 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
     );
   }
 
-  void getUsersData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getUsers);
-
-      if (response.data["status"]) {
-        dataUsers = response.data["results"];
-      } else {
-        dataUsers = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
-  void getProductsData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getProducts);
-
-      if (response.data["status"]) {
-        dataProducts = response.data["results"];
-      } else {
-        dataProducts = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
   void insertTransactionResponse() async {
     try {
       setState(() {
@@ -174,15 +392,17 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
       await Future.delayed(const Duration(seconds: 2));
       Response response;
 
+      String formattedDate = _selectedDate != null
+          ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
+          : '';
+
       var dataTransaction = {
-        "id_transactions": 0,
-        "username": "usertest",
-        "id_product": 1,
+        "username": _selectedUser?.username,
+        "productId": _selectedProduct?.idProduct,
         "quantity": qtyController.text,
-        "date": "Test",
-        "status": "Test"
+        "date": formattedDate,
+        "status": _selectedStatus
       };
-      // TODO: Fix later after adding input
 
       response = await dio.post(inputTransaction, data: dataTransaction);
 
@@ -193,7 +413,12 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushNamed(context, TransactionsPage.routeName);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 4),
+          ),
+        );
       } else {
         toastification.show(
             title: Text(response.data['message']),
@@ -202,6 +427,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
             style: ToastificationStyle.fillColored);
       }
     } catch (e) {
+      print(e);
       toastification.show(
           title: const Text("Terjadi kesalahan pada server"),
           autoCloseDuration: const Duration(seconds: 3),
