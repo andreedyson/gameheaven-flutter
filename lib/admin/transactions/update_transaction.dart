@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/product_model.dart';
@@ -339,6 +340,45 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                           )
                         : ElevatedButton(
                             onPressed: () {
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.confirm,
+                                title: "Hapus Transaksi",
+                                text:
+                                    'Apakah anda yakin ingin menghapus transaksi ini ?',
+                                confirmBtnText: "Hapus",
+                                cancelBtnText: 'Batal',
+                                confirmBtnColor: Colors.red,
+                                animType: QuickAlertAnimType.slideInDown,
+                                onConfirmBtnTap: () {
+                                  deleteTransactionResponse(idTransaction);
+                                  Navigator.of(context).pop();
+                                },
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                minimumSize: const Size.fromHeight(50)),
+                            child: const Text(
+                              'Hapus',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  SizedBox(
+                    height: 46,
+                    width: 100,
+                    child: isLoading
+                        ? const SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: CircularProgressIndicator(),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
                               if (_selectedUser == null) {
                                 toastification.show(
                                     title: const Text("User harus dipilih!"),
@@ -440,6 +480,45 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
       }
     } catch (e) {
       print(e);
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void deleteTransactionResponse(idTransaction) async {
+    try {
+      Response response;
+
+      response = await dio.delete("$deleteTransaction/$idTransaction");
+
+      if (response.data["status"]) {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.success,
+            style: ToastificationStyle.fillColored);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 4),
+          ),
+        );
+      } else {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.fillColored);
+      }
+    } catch (e) {
       toastification.show(
           title: const Text("Terjadi kesalahan pada server"),
           autoCloseDuration: const Duration(seconds: 3),
