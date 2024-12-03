@@ -414,7 +414,7 @@ class _HomePageState extends State<HomePage> {
                         height: 12,
                       ),
                       SizedBox(
-                        height: 550,
+                        height: 650,
                         child: isLoading
                             ? const Center(
                                 child: CircularProgressIndicator(),
@@ -536,21 +536,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  Color? getStatusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return Colors.orange[900];
-      case 'processing':
-        return Colors.blue[800];
-      case 'completed':
-        return Colors.green[800];
-      case 'cancelled':
-        return Colors.red[800];
-      default:
-        return Colors.grey;
-    }
   }
 
   void getTotalUsersData() async {
