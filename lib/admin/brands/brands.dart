@@ -78,69 +78,67 @@ class _BrandsPageState extends State<BrandsPage> {
             const SizedBox(
               height: 24,
             ),
-            Expanded(
-                child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemBuilder: (context, index) {
-                          var brand = dataBrands[index];
-                          return ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            title: Text(
-                              "${brand["id_brand"]} (${brand["name"]})",
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            leading: const Icon(
-                              Icons.branding_watermark,
-                              color: Colors.white,
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, UpdateBrandsPage.routeName,
-                                          arguments: brand);
+            isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      var brand = dataBrands[index];
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          "${brand["id_brand"]} (${brand["name"]})",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        leading: const Icon(
+                          Icons.branding_watermark,
+                          color: Colors.white,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, UpdateBrandsPage.routeName,
+                                      arguments: brand);
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.yellow,
+                                  size: 20,
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  QuickAlert.show(
+                                    context: context,
+                                    type: QuickAlertType.confirm,
+                                    title: "Hapus Brand",
+                                    text:
+                                        'Apakah anda yakin ingin menghapus brand ${brand["name"]} ?',
+                                    confirmBtnText: "Hapus",
+                                    cancelBtnText: 'Batal',
+                                    confirmBtnColor: Colors.red,
+                                    animType: QuickAlertAnimType.slideInDown,
+                                    onConfirmBtnTap: () {
+                                      deleteBrandResponse(brand["id_brand"]);
+                                      Navigator.of(context).pop();
                                     },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      color: Colors.yellow,
-                                      size: 20,
-                                    )),
-                                IconButton(
-                                    onPressed: () {
-                                      QuickAlert.show(
-                                        context: context,
-                                        type: QuickAlertType.confirm,
-                                        title: "Hapus Brand",
-                                        text:
-                                            'Apakah anda yakin ingin menghapus brand ${brand["name"]} ?',
-                                        confirmBtnText: "Hapus",
-                                        cancelBtnText: 'Batal',
-                                        confirmBtnColor: Colors.red,
-                                        animType:
-                                            QuickAlertAnimType.slideInDown,
-                                        onConfirmBtnTap: () {
-                                          deleteBrandResponse(
-                                              brand["id_brand"]);
-                                          Navigator.of(context).pop();
-                                        },
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                      size: 20,
-                                    ))
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: dataBrands.length,
-                      ))
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 20,
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: dataBrands.length,
+                  ))
           ],
         ),
       ),

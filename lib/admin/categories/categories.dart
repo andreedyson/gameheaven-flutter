@@ -78,69 +78,68 @@ class _CategoriesPageState extends State<CategoriesPage> {
             const SizedBox(
               height: 24,
             ),
-            Expanded(
-                child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListView.builder(
-                        itemBuilder: (context, index) {
-                          var category = dataCategories[index];
-                          return ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            title: Text(
-                              "${category["name"]} (${category["totalProducts"]} Item)",
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            leading: const Icon(
-                              Icons.category,
-                              color: Colors.white,
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context,
-                                          UpdateCategoriesPage.routeName,
-                                          arguments: category);
+            isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      var category = dataCategories[index];
+                      return ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          "${category["name"]} (${category["totalProducts"]} Item)",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        leading: const Icon(
+                          Icons.category,
+                          color: Colors.white,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, UpdateCategoriesPage.routeName,
+                                      arguments: category);
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.yellow,
+                                  size: 20,
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  QuickAlert.show(
+                                    context: context,
+                                    type: QuickAlertType.confirm,
+                                    title: "Hapus Kategori",
+                                    text:
+                                        'Apakah anda yakin ingin menghapus kategori ${category["name"]} ?',
+                                    confirmBtnText: "Hapus",
+                                    cancelBtnText: 'Batal',
+                                    confirmBtnColor: Colors.red,
+                                    animType: QuickAlertAnimType.slideInDown,
+                                    onConfirmBtnTap: () {
+                                      deleteCategoryResponse(
+                                          category["id_category"]);
+                                      Navigator.of(context).pop();
                                     },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      color: Colors.yellow,
-                                      size: 20,
-                                    )),
-                                IconButton(
-                                    onPressed: () {
-                                      QuickAlert.show(
-                                        context: context,
-                                        type: QuickAlertType.confirm,
-                                        title: "Hapus Kategori",
-                                        text:
-                                            'Apakah anda yakin ingin menghapus kategori ${category["name"]} ?',
-                                        confirmBtnText: "Hapus",
-                                        cancelBtnText: 'Batal',
-                                        confirmBtnColor: Colors.red,
-                                        animType:
-                                            QuickAlertAnimType.slideInDown,
-                                        onConfirmBtnTap: () {
-                                          deleteCategoryResponse(
-                                              category["id_category"]);
-                                          Navigator.of(context).pop();
-                                        },
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                      size: 20,
-                                    ))
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: dataCategories.length,
-                      ))
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 20,
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: dataCategories.length,
+                  ))
           ],
         ),
       ),
