@@ -20,9 +20,74 @@ class _CategoriesPageState extends State<CategoriesPage> {
   bool isLoading = false;
   var dataCategories = [];
 
+  void getCategoriesData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    try {
+      Response response;
+
+      response = await dio.get(getCategories);
+
+      if (response.data["status"]) {
+        dataCategories = response.data["results"];
+      } else {
+        dataCategories = [];
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void deleteCategoryResponse(idCategory) async {
+    try {
+      Response response;
+
+      response = await dio.delete("$deleteCategory/$idCategory");
+
+      if (response.data["status"]) {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.success,
+            style: ToastificationStyle.fillColored);
+
+        getCategoriesData();
+      } else {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.fillColored);
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
-    getData();
+    getCategoriesData();
   }
 
   @override
@@ -144,69 +209,5 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
       ),
     );
-  }
-
-  void getData() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    try {
-      Response response;
-
-      response = await dio.get(getCategories);
-
-      if (response.data["status"]) {
-        dataCategories = response.data["results"];
-      } else {
-        dataCategories = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  void deleteCategoryResponse(idCategory) async {
-    try {
-      Response response;
-
-      response = await dio.delete("$deleteCategory/$idCategory");
-
-      if (response.data["status"]) {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.success,
-            style: ToastificationStyle.fillColored);
-
-        getData();
-      } else {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.error,
-            style: ToastificationStyle.fillColored);
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }

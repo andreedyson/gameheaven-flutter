@@ -20,6 +20,35 @@ class _TransactionsPageState extends State<TransactionsPage> {
   bool isLoading = false;
   var transactionsData = [];
 
+  void getTransactionsData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(getTransactions);
+
+      if (response.data["status"]) {
+        transactionsData = response.data["results"];
+      } else {
+        transactionsData = [];
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -81,9 +110,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
               const SizedBox(
                 height: 24,
               ),
-              // Wrap the ListView in a Container with a fixed height
-              Container(
-                height: 600, // Set a fixed height for the ListView
+              SizedBox(
+                height: 600,
                 child: isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -206,34 +234,5 @@ class _TransactionsPageState extends State<TransactionsPage> {
         ),
       ),
     );
-  }
-
-  void getTransactionsData() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    await Future.delayed(const Duration(seconds: 1));
-    try {
-      Response response;
-
-      response = await dio.get(getTransactions);
-
-      if (response.data["status"]) {
-        transactionsData = response.data["results"];
-      } else {
-        transactionsData = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }

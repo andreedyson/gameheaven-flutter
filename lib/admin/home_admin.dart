@@ -425,7 +425,7 @@ class _HomePageState extends State<HomePage> {
                         height: 12,
                       ),
                       SizedBox(
-                        height: 650,
+                        height: 535,
                         child: isLoading
                             ? const Center(
                                 child: CircularProgressIndicator(),
