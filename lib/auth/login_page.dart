@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final dio = Dio();
   bool isLoading = false;
+  bool isObscure = true;
   var userData;
 
   TextEditingController usernameController = TextEditingController();
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 48,
+              height: 120,
             ),
             Image.asset(
               'assets/images/game-console.png',
@@ -59,14 +60,15 @@ class _LoginPageState extends State<LoginPage> {
               height: 100.0,
             ),
             const SizedBox(
-              height: 24,
+              height: 20,
             ),
             Text(
               'Game',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
-                  fontSize: 24,
+                  height: 1,
+                  fontSize: 32,
                   color: Colors.blue[300]),
             ),
             Text(
@@ -74,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
-                  fontSize: 24,
+                  height: 1,
+                  fontSize: 32,
                   color: Colors.blue[300]),
             ),
             const SizedBox(
@@ -85,8 +88,17 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: 'Username',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.person,
+                  color: Colors.white,
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -103,8 +115,29 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.password,
+                  color: Colors.white,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isObscure ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                    size: 24,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -112,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               style: const TextStyle(color: Colors.white),
               keyboardType: TextInputType.text,
-              obscureText: true,
+              obscureText: isObscure,
             ),
             const SizedBox(
               height: 24.0,
@@ -140,18 +173,25 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.cyan,
-                        minimumSize: const Size.fromHeight(50)),
+                      backgroundColor: Colors.cyan,
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: const Text(
                       'Login',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
                     ),
                   ),
             const SizedBox(
-              height: 16.0,
+              height: 24.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Belum memiliki akun?',

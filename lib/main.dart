@@ -15,6 +15,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transa
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/update_transaction.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/register_page.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         RegisterPage.routeName: (context) => const RegisterPage(),
         HomeAdminPage.routeName: (context) => const HomeAdminPage(),
+        HomeUsersPage.routeName: (context) => const HomeUsersPage(),
         BrandsPage.routeName: (context) => const BrandsPage(),
         InputBrandsPage.routeName: (context) => const InputBrandsPage(),
         UpdateBrandsPage.routeName: (context) => const UpdateBrandsPage(),

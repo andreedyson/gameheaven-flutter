@@ -16,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final dio = Dio();
   bool isLoading = false;
+  bool isObscure = true;
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
@@ -50,7 +51,8 @@ class _RegisterPageState extends State<RegisterPage> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
-                  fontSize: 24,
+                  height: 1,
+                  fontSize: 32,
                   color: Colors.blue[300]),
             ),
             Text(
@@ -58,7 +60,8 @@ class _RegisterPageState extends State<RegisterPage> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
-                  fontSize: 24,
+                  height: 1,
+                  fontSize: 32,
                   color: Colors.blue[300]),
             ),
             const SizedBox(
@@ -69,8 +72,17 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Username',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.person,
+                  color: Colors.white,
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -87,8 +99,17 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.email,
+                  color: Colors.white,
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -105,8 +126,17 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Full Name',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.badge,
+                  color: Colors.white,
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -123,8 +153,17 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Phone Number',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.phone,
+                  color: Colors.white,
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -141,8 +180,29 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: const OutlineInputBorder(),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                ),
+                prefixIcon: const Icon(
+                  Icons.password,
+                  color: Colors.white,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isObscure ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                    size: 24,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
                 ),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
@@ -150,7 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               style: const TextStyle(color: Colors.white),
               keyboardType: TextInputType.text,
-              obscureText: true,
+              obscureText: isObscure,
             ),
             const SizedBox(
               height: 24.0,
@@ -198,21 +258,27 @@ class _RegisterPageState extends State<RegisterPage> {
                       } else {
                         registerResponse();
                       }
-                      ;
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.cyan,
-                        minimumSize: const Size.fromHeight(50)),
+                      backgroundColor: Colors.cyan,
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: const Text(
                       'Register',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
             const SizedBox(
               height: 16.0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Sudah memiliki akun?',
