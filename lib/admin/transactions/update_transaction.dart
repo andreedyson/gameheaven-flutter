@@ -333,10 +333,12 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     height: 46,
                     width: 100,
                     child: isLoading
-                        ? const SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: CircularProgressIndicator(),
+                        ? const Center(
+                            child: SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator(),
+                            ),
                           )
                         : ElevatedButton(
                             onPressed: () {
