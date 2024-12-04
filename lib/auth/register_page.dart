@@ -80,10 +80,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                prefixIcon: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
+                prefixIcon:
+                    const Icon(Icons.person, color: Colors.white, size: 20),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
                 ),
@@ -107,10 +105,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                prefixIcon: const Icon(
-                  Icons.email,
-                  color: Colors.white,
-                ),
+                prefixIcon:
+                    const Icon(Icons.email, color: Colors.white, size: 20),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
                 ),
@@ -134,10 +130,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                prefixIcon: const Icon(
-                  Icons.badge,
-                  color: Colors.white,
-                ),
+                prefixIcon:
+                    const Icon(Icons.badge, color: Colors.white, size: 20),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
                 ),
@@ -161,10 +155,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                prefixIcon: const Icon(
-                  Icons.phone,
-                  color: Colors.white,
-                ),
+                prefixIcon:
+                    const Icon(Icons.phone, color: Colors.white, size: 20),
                 labelStyle: TextStyle(
                   color: Colors.grey[400],
                 ),
@@ -188,10 +180,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide: const BorderSide(color: Colors.grey, width: 1.0),
                 ),
-                prefixIcon: const Icon(
-                  Icons.password,
-                  color: Colors.white,
-                ),
+                prefixIcon:
+                    const Icon(Icons.password, color: Colors.white, size: 20),
                 suffixIcon: IconButton(
                   icon: Icon(
                     isObscure ? Icons.visibility : Icons.visibility_off,
