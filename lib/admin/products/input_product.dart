@@ -279,7 +279,7 @@ class _InputProductsPageState extends State<InputProductsPage> {
                 TextField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    labelText: 'description',
+                    labelText: 'Description',
                     border: const OutlineInputBorder(),
                     focusColor: Colors.cyan,
                     focusedBorder: OutlineInputBorder(
