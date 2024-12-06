@@ -433,6 +433,15 @@ class _InputProductsPageState extends State<InputProductsPage> {
                                       autoCloseDuration:
                                           const Duration(seconds: 3),
                                       style: ToastificationStyle.fillColored);
+                                } else if (_imageBytes == null) {
+                                  toastification.show(
+                                      context: context,
+                                      title: const Text(
+                                          'Gambar Produk tidak boleh kosong!'),
+                                      type: ToastificationType.error,
+                                      autoCloseDuration:
+                                          const Duration(seconds: 3),
+                                      style: ToastificationStyle.fillColored);
                                 } else {
                                   insertProductResponse();
                                 }
