@@ -137,8 +137,11 @@ class _InputCategoriesPageState extends State<InputCategoriesPage> {
                             if (nameController.text.isEmpty) {
                               toastification.show(
                                   context: context,
-                                  title: const Text(
-                                      'Nama Kategori Tidak Boleh Kosong!'),
+                                  description: const Text(
+                                    'Nama Kategori tidak boleh kosong!',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);

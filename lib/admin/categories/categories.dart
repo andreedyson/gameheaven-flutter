@@ -66,7 +66,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
         getCategoriesData();
       } else {
         toastification.show(
-            title: Text(response.data['message']),
+            description: Text(response.data['message'],
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.error,
             style: ToastificationStyle.fillColored);

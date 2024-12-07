@@ -123,7 +123,10 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
         );
       } else {
         toastification.show(
-            title: Text(response.data['message']),
+            description: Text(
+              response.data['message'],
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.error,
             style: ToastificationStyle.fillColored);
@@ -149,7 +152,8 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
 
       if (response.data["status"]) {
         toastification.show(
-            title: Text(response.data['message']),
+            description: Text(response.data['message'],
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
@@ -162,7 +166,8 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
         );
       } else {
         toastification.show(
-            title: Text(response.data['message']),
+            description: Text(response.data['message'],
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.error,
             style: ToastificationStyle.fillColored);
@@ -544,7 +549,9 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                                   toastification.show(
                                       context: context,
                                       title: const Text(
-                                          'Nama Produk tidak boleh kosong!'),
+                                          'Nama Produk tidak boleh kosong!',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
                                       type: ToastificationType.error,
                                       autoCloseDuration:
                                           const Duration(seconds: 3),
