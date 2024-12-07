@@ -29,6 +29,134 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
   TextEditingController qtyController = TextEditingController();
   int idTransaction = 0;
 
+  Future<List<ProductModel>> getProductsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getProducts);
+
+      final data = response.data["results"];
+      if (data != null) {
+        return ProductModel.fromJsonList(data);
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
+    }
+    return [];
+  }
+
+  Future<List<UserModel>> getUsersData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getUsers);
+
+      final data = response.data["results"];
+      if (data != null) {
+        return UserModel.fromJsonList(data);
+      }
+    } catch (e) {
+      throw Exception('Terjadi kesalahan: $e');
+    }
+    return [];
+  }
+
+  void updateTransactionResponse() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      await Future.delayed(const Duration(seconds: 2));
+      Response response;
+
+      String formattedDate = _selectedDate != null
+          ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
+          : '';
+
+      var dataTransaction = {
+        "username": _selectedUser?.username,
+        "productId": _selectedProduct?.idProduct,
+        "quantity": qtyController.text,
+        "date": formattedDate,
+        "status": _selectedStatus
+      };
+
+      response = await dio.put("$updateTransaction/$idTransaction",
+          data: dataTransaction);
+
+      if (response.data["status"]) {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.success,
+            style: ToastificationStyle.fillColored);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 4),
+          ),
+        );
+      } else {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.fillColored);
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void deleteTransactionResponse(idTransaction) async {
+    try {
+      Response response;
+
+      response = await dio.delete("$deleteTransaction/$idTransaction");
+
+      if (response.data["status"]) {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.success,
+            style: ToastificationStyle.fillColored);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 4),
+          ),
+        );
+      } else {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.fillColored);
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
@@ -42,38 +170,6 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
     _selectedDate = _selectedDate ?? DateTime.parse(args["date"]);
 
     qtyController.text = quantity.toString();
-
-    Future<List<ProductModel>> getProductsData() async {
-      try {
-        Response response;
-
-        response = await dio.get(getProducts);
-
-        final data = response.data["results"];
-        if (data != null) {
-          return ProductModel.fromJsonList(data);
-        }
-      } catch (e) {
-        throw Exception('Terjadi kesalahan: $e');
-      }
-      return [];
-    }
-
-    Future<List<UserModel>> getUsersData() async {
-      try {
-        Response response;
-
-        response = await dio.get(getUsers);
-
-        final data = response.data["results"];
-        if (data != null) {
-          return UserModel.fromJsonList(data);
-        }
-      } catch (e) {
-        throw Exception('Terjadi kesalahan: $e');
-      }
-      return [];
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -442,101 +538,5 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 ],
               )
             ])));
-  }
-
-  void updateTransactionResponse() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      await Future.delayed(const Duration(seconds: 2));
-      Response response;
-
-      String formattedDate = _selectedDate != null
-          ? DateFormat('yyyy-MM-dd').format(_selectedDate!)
-          : '';
-
-      var dataTransaction = {
-        "username": _selectedUser?.username,
-        "productId": _selectedProduct?.idProduct,
-        "quantity": qtyController.text,
-        "date": formattedDate,
-        "status": _selectedStatus
-      };
-
-      response = await dio.put("$updateTransaction/$idTransaction",
-          data: dataTransaction);
-
-      if (response.data["status"]) {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.success,
-            style: ToastificationStyle.fillColored);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 4),
-          ),
-        );
-      } else {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.error,
-            style: ToastificationStyle.fillColored);
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  void deleteTransactionResponse(idTransaction) async {
-    try {
-      Response response;
-
-      response = await dio.delete("$deleteTransaction/$idTransaction");
-
-      if (response.data["status"]) {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.success,
-            style: ToastificationStyle.fillColored);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 4),
-          ),
-        );
-      } else {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.error,
-            style: ToastificationStyle.fillColored);
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }

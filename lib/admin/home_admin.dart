@@ -115,6 +115,115 @@ class _HomePageState extends State<HomePage> {
 
   var highestTransactionsList = [];
 
+  void getTotalUsersData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getTotalUsers);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalUsers = response.data["total_users"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalTransactionsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getTotalTransaction);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalTransactions = response.data["total_transactions"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalBrandsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getTotalBrand);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalBrands = response.data["total_brands"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getTotalProductsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getTotalProduct);
+
+      if (response.data["status"]) {
+        setState(() {
+          totalProducts = response.data["total_products"];
+        });
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
+  void getHighestTransactions() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+    try {
+      Response response;
+
+      response = await dio.get(highestTransactions);
+
+      if (response.data["status"]) {
+        highestTransactionsList = response.data["results"];
+      } else {
+        highestTransactionsList = [];
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text('Kesalahan pada server'),
+          type: ToastificationType.error,
+          autoCloseDuration: const Duration(seconds: 3),
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -547,114 +656,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  void getTotalUsersData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getTotalUsers);
-
-      if (response.data["status"]) {
-        setState(() {
-          totalUsers = response.data["total_users"];
-        });
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
-  void getTotalTransactionsData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getTotalTransaction);
-
-      if (response.data["status"]) {
-        setState(() {
-          totalTransactions = response.data["total_transactions"];
-        });
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
-  void getTotalBrandsData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getTotalBrand);
-
-      if (response.data["status"]) {
-        setState(() {
-          totalBrands = response.data["total_brands"];
-        });
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
-  void getTotalProductsData() async {
-    try {
-      Response response;
-
-      response = await dio.get(getTotalProduct);
-
-      if (response.data["status"]) {
-        setState(() {
-          totalProducts = response.data["total_products"];
-        });
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    }
-  }
-
-  void getHighestTransactions() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    await Future.delayed(const Duration(seconds: 1));
-    try {
-      Response response;
-
-      response = await dio.get(highestTransactions);
-
-      if (response.data["status"]) {
-        highestTransactionsList = response.data["results"];
-      } else {
-        highestTransactionsList = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text('Kesalahan pada server'),
-          type: ToastificationType.error,
-          autoCloseDuration: const Duration(seconds: 3),
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }

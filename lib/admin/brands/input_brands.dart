@@ -19,6 +19,54 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
 
   TextEditingController idBrandController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+
+  void insertBrandResponse() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      await Future.delayed(const Duration(seconds: 2));
+      Response response;
+
+      response = await dio.post(inputBrand, data: {
+        "id_brand": idBrandController.text,
+        "name": nameController.text
+      });
+
+      if (response.data["status"]) {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.success,
+            style: ToastificationStyle.fillColored);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 3),
+          ),
+        );
+      } else {
+        toastification.show(
+            title: Text(response.data['message']),
+            autoCloseDuration: const Duration(seconds: 3),
+            type: ToastificationType.error,
+            style: ToastificationStyle.fillColored);
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,52 +208,5 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
         ),
       ),
     );
-  }
-
-  void insertBrandResponse() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      await Future.delayed(const Duration(seconds: 2));
-      Response response;
-
-      response = await dio.post(inputBrand, data: {
-        "id_brand": idBrandController.text,
-        "name": nameController.text
-      });
-
-      if (response.data["status"]) {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.success,
-            style: ToastificationStyle.fillColored);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 3),
-          ),
-        );
-      } else {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.error,
-            style: ToastificationStyle.fillColored);
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }
