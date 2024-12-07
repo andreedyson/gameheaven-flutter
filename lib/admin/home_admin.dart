@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:popover/popover.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/brands/brands.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/categories.dart';
@@ -57,9 +58,93 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Admin Page',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Admin Page',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              Builder(builder: (context) {
+                return GestureDetector(
+                  onTap: () {
+                    showPopover(
+                      context: context,
+                      bodyBuilder: (context) => Container(
+                        padding: const EdgeInsets.all(16),
+                        width: 150,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(userData["email"],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              const SizedBox(height: 5),
+                              Text(userData["full_name"]),
+                              const SizedBox(height: 10),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Role"),
+                                  Text(
+                                    "Admin",
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              const Divider(
+                                height: 1,
+                              ),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, LoginPage.routeName);
+                                  clearUserData();
+                                },
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.logout,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      'Logout',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      direction: PopoverDirection.bottom,
+                      width: 200,
+                      arrowWidth: 20,
+                      backgroundColor: Colors.white,
+                    );
+                  },
+                  child: CircleAvatar(
+                    child: Text(userData?["full_name"][0] ?? "A"),
+                  ),
+                );
+              })
+            ],
           ),
           backgroundColor: Colors.cyan,
           automaticallyImplyLeading: false,
@@ -241,7 +326,6 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-          // Main Column Wrapper
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -464,42 +548,9 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(
                             height: 24,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.grey[800],
-                                ),
-                                onPressed: () {
-                                  Navigator.popAndPushNamed(
-                                      context, LoginPage.routeName);
-                                  clearUserData();
-                                },
-                                child: const Row(
-                                  children: [
-                                    Icon(
-                                      Icons.logout,
-                                      color: Colors.red,
-                                    ),
-                                    Text(
-                                      'Logout',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.red),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 32,
                   ),
                   Column(
                     children: [
