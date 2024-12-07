@@ -171,7 +171,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Kode Brand Tidak Boleh Kosong!'),
+                                      'Kode Brand tidak boleh kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);
@@ -179,7 +179,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Nama Brand Tidak Boleh Kosong!'),
+                                      'Nama Brand tidak boleh kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);

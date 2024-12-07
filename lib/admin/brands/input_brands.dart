@@ -163,7 +163,7 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Kode Brand Tidak Boleh Kosong!'),
+                                      'Kode Brand tidak boleh kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);
@@ -171,7 +171,7 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Nama Brand Tidak Boleh Kosong!'),
+                                      'Nama Brand tidak boleh kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);
@@ -179,7 +179,7 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Kode Brand Maksimal 4 Karakter!'),
+                                      'Kode Brand maksimal 4 karakter!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);

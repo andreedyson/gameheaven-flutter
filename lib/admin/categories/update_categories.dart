@@ -147,7 +147,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
                               toastification.show(
                                   context: context,
                                   title: const Text(
-                                      'Nama Kategori Tidak Boleh Kosong!'),
+                                      'Nama Kategori tidak boleh kosong!'),
                                   type: ToastificationType.error,
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);

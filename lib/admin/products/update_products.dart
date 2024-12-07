@@ -277,7 +277,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                 TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: 'Nama Produk',
                     border: const OutlineInputBorder(),
                     focusColor: Colors.cyan,
                     focusedBorder: OutlineInputBorder(
@@ -314,7 +314,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                     showSearchBox: true,
                     searchFieldProps: const TextFieldProps(
                       decoration: InputDecoration(
-                        hintText: "Search Category...",
+                        hintText: "Search Kategori...",
                       ),
                     ),
                   ),
@@ -328,7 +328,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   },
                   dropdownDecoratorProps: DropDownDecoratorProps(
                     dropdownSearchDecoration: InputDecoration(
-                      hintText: "Search Category...",
+                      hintText: "Search Kategori...",
                       prefixIcon:
                           const Icon(Icons.category, color: Colors.white),
                       hintStyle: const TextStyle(color: Colors.white),
@@ -343,7 +343,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   dropdownBuilder:
                       (BuildContext context, CategoryModel? selectedItem) {
                     return Text(
-                      selectedItem?.name ?? "Select Category",
+                      selectedItem?.name ?? "Select Kategori",
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -411,7 +411,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                 TextField(
                   controller: priceController,
                   decoration: InputDecoration(
-                    labelText: 'Price',
+                    labelText: 'Harga',
                     border: const OutlineInputBorder(),
                     focusColor: Colors.cyan,
                     focusedBorder: OutlineInputBorder(
@@ -437,7 +437,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                 TextField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    labelText: 'Description',
+                    labelText: 'Deskripsi',
                     border: const OutlineInputBorder(),
                     focusColor: Colors.cyan,
                     focusedBorder: OutlineInputBorder(
@@ -464,7 +464,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                 TextField(
                   controller: stocksController,
                   decoration: InputDecoration(
-                    labelText: 'Stocks',
+                    labelText: 'Stok',
                     border: const OutlineInputBorder(),
                     focusColor: Colors.cyan,
                     focusedBorder: OutlineInputBorder(

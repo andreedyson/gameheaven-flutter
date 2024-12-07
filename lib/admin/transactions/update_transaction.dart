@@ -499,7 +499,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                                 toastification.show(
                                     context: context,
                                     title: const Text(
-                                        'Jumlah Barang Tidak Boleh Kosong!'),
+                                        'Jumlah Barang tidak boleh kosong!'),
                                     type: ToastificationType.error,
                                     autoCloseDuration:
                                         const Duration(seconds: 3),
