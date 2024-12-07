@@ -80,7 +80,8 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                   color: Colors.grey[400],
                 ),
               ),
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
               keyboardType: TextInputType.text,
             ),
             const SizedBox(
@@ -145,8 +146,12 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.cyan,
-                              minimumSize: const Size.fromHeight(50)),
+                            backgroundColor: Colors.cyan,
+                            minimumSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                           child: const Text(
                             'Simpan',
                             style: TextStyle(color: Colors.white),

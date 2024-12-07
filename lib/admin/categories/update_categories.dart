@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/admin/categories/categories.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 
 class UpdateCategoriesPage extends StatefulWidget {
@@ -110,8 +110,12 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.cyan,
-                              minimumSize: const Size.fromHeight(50)),
+                            backgroundColor: Colors.cyan,
+                            minimumSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                           child: const Text(
                             'Simpan',
                             style: TextStyle(color: Colors.white),
@@ -145,7 +149,12 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushNamed(context, CategoriesPage.routeName);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 1),
+          ),
+        );
       } else {
         toastification.show(
             title: Text(response.data['message']),

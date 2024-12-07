@@ -101,11 +101,17 @@ class _InputCategoriesPageState extends State<InputCategoriesPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.cyan,
-                              minimumSize: const Size.fromHeight(50)),
+                            backgroundColor: Colors.cyan,
+                            minimumSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                           child: const Text(
                             'Simpan',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
                           ),
                         ),
                 )
