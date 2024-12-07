@@ -41,9 +41,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
     _selectedStatus = _selectedStatus ?? args["status"];
     _selectedDate = _selectedDate ?? DateTime.parse(args["date"]);
 
-    if (qtyController.text.isEmpty) {
-      qtyController.text = quantity.toString();
-    }
+    qtyController.text = quantity.toString();
 
     Future<List<ProductModel>> getProductsData() async {
       try {
@@ -483,7 +481,6 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
             style: ToastificationStyle.fillColored);
       }
     } catch (e) {
-      print(e);
       toastification.show(
           title: const Text("Terjadi kesalahan pada server"),
           autoCloseDuration: const Duration(seconds: 3),

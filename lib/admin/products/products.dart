@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:quickalert/quickalert.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/input_product.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/update_products.dart';
@@ -36,40 +35,6 @@ class _ProductsPageState extends State<ProductsPage> {
         dataProducts = response.data["results"];
       } else {
         dataProducts = [];
-      }
-    } catch (e) {
-      toastification.show(
-          title: const Text("Terjadi kesalahan pada server"),
-          autoCloseDuration: const Duration(seconds: 3),
-          type: ToastificationType.error,
-          style: ToastificationStyle.fillColored);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  void deleteProductsResponse(idProduct) async {
-    try {
-      Response response;
-
-      response = await dio.delete("$deleteProduct/$idProduct");
-
-      if (response.data["status"]) {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.success,
-            style: ToastificationStyle.fillColored);
-
-        getProductsData();
-      } else {
-        toastification.show(
-            title: Text(response.data['message']),
-            autoCloseDuration: const Duration(seconds: 3),
-            type: ToastificationType.error,
-            style: ToastificationStyle.fillColored);
       }
     } catch (e) {
       toastification.show(
@@ -153,134 +118,95 @@ class _ProductsPageState extends State<ProductsPage> {
                       itemBuilder: (context, index) {
                         final product = dataProducts[index];
 
-                        return Card(
-                            color: const Color(0xFF2f2f2f),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      // Product Image
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          "$imageUrl/${product["image"]}",
-                                          width: 80,
-                                          height: 80,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 12,
-                                      ),
-                                      // Product Details
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 120,
-                                            child: Text(
-                                              product["name"],
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              maxLines: 1,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 120,
-                                            child: Text(
-                                              "${product["categories"]["name"]} • ${product["brands"]["name"]}",
-                                              style: TextStyle(
-                                                  color: Colors.grey[400],
-                                                  fontSize: 14,
-                                                  height: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
-                                              maxLines: 1,
-                                            ),
-                                          ),
-                                          Text(
-                                              product["stocks"] > 0
-                                                  ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''}"
-                                                  : "Out of Stocks",
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14)),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        UpdateProductsPage
-                                                            .routeName,
-                                                        arguments: product);
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.edit,
-                                                    color: Colors.yellow,
-                                                    size: 20,
-                                                  )),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    QuickAlert.show(
-                                                      context: context,
-                                                      type: QuickAlertType
-                                                          .confirm,
-                                                      title: "Hapus Produk",
-                                                      text:
-                                                          'Apakah anda yakin ingin menghapus produk ${product["name"]} ?',
-                                                      confirmBtnText: "Hapus",
-                                                      cancelBtnText: 'Batal',
-                                                      confirmBtnColor:
-                                                          Colors.red,
-                                                      animType:
-                                                          QuickAlertAnimType
-                                                              .slideInDown,
-                                                      onConfirmBtnTap: () {
-                                                        deleteProductsResponse(
-                                                            product[
-                                                                "id_product"]);
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red,
-                                                    size: 20,
-                                                  ))
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Text(
-                                    currencyFormatter(
-                                      product["price"],
-                                    ),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
-                                  )
-                                ],
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, UpdateProductsPage.routeName,
+                                arguments: product);
+                          },
+                          child: Card(
+                              color: const Color(0xFF2f2f2f),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                            ));
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        // Product Image
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            "$imageUrl/${product["image"]}",
+                                            width: 80,
+                                            height: 80,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 12,
+                                        ),
+                                        // Product Details
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 120,
+                                              child: Text(
+                                                product["name"],
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 120,
+                                              child: Text(
+                                                "${product["categories"]["name"]} • ${product["brands"]["name"]}",
+                                                style: TextStyle(
+                                                    color: Colors.grey[400],
+                                                    fontSize: 14,
+                                                    height: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Text(
+                                                product["stocks"] > 0
+                                                    ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''}"
+                                                    : "Out of Stocks",
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14)),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Text(
+                                      currencyFormatter(
+                                        product["price"],
+                                      ),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        );
                       },
                     ),
                   ),
