@@ -113,7 +113,7 @@ class UserHomePageState extends State<UserHomePage> {
 
       if (response.data["status"]) {
         setState(() {
-          topProducts = response.data["results"];
+          topProducts = response.data["results"].sublist(0, 4);
         });
       }
     } catch (e) {
@@ -206,8 +206,6 @@ class UserHomePageState extends State<UserHomePage> {
                 )
               : GridView.count(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
                   childAspectRatio: 0.5,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -215,7 +213,9 @@ class UserHomePageState extends State<UserHomePage> {
                     var product = topProducts[index];
                     String formattedPrice = currencyFormatter(product['price']);
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        // TODO: Add Navigator to dynamic route for Product Detail page
+                      },
                       child: Card(
                         elevation: 2,
                         color: Colors.grey[850],
@@ -235,7 +235,7 @@ class UserHomePageState extends State<UserHomePage> {
                                 ),
                                 child: Image.network(
                                   "$imageUrl${product['image']}",
-                                  fit: BoxFit.cover, // Adjust the fit as needed
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               Padding(
@@ -348,6 +348,69 @@ class UserHomePageState extends State<UserHomePage> {
                     );
                   }),
                 ),
+          const SizedBox(height: 32),
+          const Text(
+            'Categories',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          const SizedBox(height: 12),
+          GridView.count(
+            crossAxisCount: 2,
+            childAspectRatio: 1.5,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            children: List.generate(categoriesList.length, (index) {
+              var category = categoriesList[index];
+              return GestureDetector(
+                onTap: () {
+                  // TODO: Add Navigator to dynamic route for Categories page
+                },
+                child: Card(
+                  elevation: 2,
+                  color: Colors.grey[850],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${category["name"]}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          "${category["totalProducts"]} ${category["totalProducts"] > 1 ? 'Products' : 'Product'}",
+                          style: TextStyle(
+                            color: Colors.grey[300],
+                            fontSize: 10,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          maxLines: 3,
+                          textAlign: TextAlign.justify,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
+          )
         ],
       ),
     );
