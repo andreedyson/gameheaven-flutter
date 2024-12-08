@@ -4,7 +4,6 @@ import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/categories/user_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/user_products.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/users/profile/user_profile.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/transactions/user_transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
@@ -30,7 +29,6 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
     const UserProductsPage(),
     const UserCategoriesPage(),
     const UserTransactionsPage(),
-    const UserProfilePage(),
   ];
 
   @override
@@ -79,10 +77,6 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.receipt),
               label: 'Transactions',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_sharp),
-              label: 'Profile',
             ),
           ],
         ),
@@ -166,7 +160,7 @@ class UserHomePageState extends State<UserHomePage> {
             ),
           ],
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: const Color(0xFF333333),
         automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color(0xFF242526),
@@ -398,7 +392,7 @@ class UserHomePageState extends State<UserHomePage> {
                           "${category["totalProducts"]} ${category["totalProducts"] > 1 ? 'Products' : 'Product'}",
                           style: TextStyle(
                             color: Colors.grey[300],
-                            fontSize: 10,
+                            fontSize: 14,
                             overflow: TextOverflow.ellipsis,
                           ),
                           maxLines: 3,

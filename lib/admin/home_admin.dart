@@ -146,7 +146,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               })
             ],
           ),
-          backgroundColor: Colors.cyan,
+          backgroundColor: const Color(0xFF333333),
           automaticallyImplyLeading: false,
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -323,7 +323,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF181a1d),
+      backgroundColor: const Color(0xFF232429),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -560,7 +560,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "Transaksi Terbaru",
+                            "Transaksi Tertinggi",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
