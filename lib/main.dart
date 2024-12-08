@@ -15,7 +15,11 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transa
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/update_transaction.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/register_page.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/categories/user_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/user_products.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/profile/user_profile.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/transactions/user_transactions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +58,12 @@ class MyApp extends StatelessWidget {
             const UpdateTransactionPage(),
         ProductsPage.routeName: (context) => const ProductsPage(),
         InputProductsPage.routeName: (context) => const InputProductsPage(),
-        UpdateProductsPage.routeName: (context) => const UpdateProductsPage()
+        UpdateProductsPage.routeName: (context) => const UpdateProductsPage(),
+        UserProductsPage.routeName: (context) => const UserProductsPage(),
+        UserCategoriesPage.routeName: (context) => const UserCategoriesPage(),
+        UserTransactionsPage.routeName: (context) =>
+            const UserTransactionsPage(),
+        UserProfilePage.routeName: (context) => const UserProfilePage(),
       },
     ));
   }

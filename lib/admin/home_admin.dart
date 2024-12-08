@@ -183,6 +183,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   }
 }
 
+// Admin Home Page Widget
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -322,10 +323,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF232429),
+      backgroundColor: const Color(0xFF181a1d),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -595,9 +596,9 @@ class _HomePageState extends State<HomePage> {
                                 itemBuilder: (context, index) {
                                   final transaction =
                                       highestTransactionsList[index];
+
                                   String formattedDate =
                                       formatDate(transaction['date']);
-
                                   String formattedPrice = currencyFormatter(
                                       transaction["total_price"]);
 

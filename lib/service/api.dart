@@ -31,6 +31,7 @@ String highestTransactions = "$baseUrl/transaction/highest";
 
 // Product
 String getProducts = "$baseUrl/product/get";
+String getTopProducts = "$baseUrl/product/get/top-products";
 String inputProduct = "$baseUrl/product/insert";
 String updateProduct = "$baseUrl/product/edit";
 String deleteProduct = "$baseUrl/product/delete";
