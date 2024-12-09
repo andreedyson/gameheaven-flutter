@@ -8,6 +8,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/product_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/user_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class UpdateTransactionPage extends StatefulWidget {
   const UpdateTransactionPage({super.key});
@@ -178,7 +179,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
             'Edit Transaction',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
-          backgroundColor: Colors.cyan,
+          backgroundColor: AppColors.deepPurple,
         ),
         backgroundColor: const Color(0xFF232429),
         body: Padding(
@@ -313,11 +314,11 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                 decoration: InputDecoration(
                   labelText: 'Quantity',
                   border: const OutlineInputBorder(),
-                  focusColor: Colors.cyan,
+                  focusColor: AppColors.deepPurple,
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
-                    borderSide:
-                        const BorderSide(color: Colors.cyan, width: 2.0),
+                    borderSide: const BorderSide(
+                        color: AppColors.deepPurple, width: 2.0),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -397,7 +398,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                     );
 
                     setState(() {
-                      _selectedDate = pickedDate; // Update the selected date
+                      _selectedDate = pickedDate;
                     });
                   },
                   decoration: InputDecoration(
@@ -523,7 +524,7 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.cyan,
+                              backgroundColor: AppColors.deepPurple,
                               minimumSize: const Size.fromHeight(50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),

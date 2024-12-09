@@ -7,6 +7,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/categories/user_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/user_products.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/transactions/user_transactions.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
@@ -59,12 +60,12 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: 'Categories',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.conveyor_belt),
               label: 'Products',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.category),
+              label: 'Categories',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.receipt),
@@ -250,7 +251,7 @@ class UserHomePageState extends State<UserHomePage> {
             })
           ],
         ),
-        backgroundColor: const Color(0xFF333333),
+        backgroundColor: AppColors.deepPurple,
         automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color(0xFF242526),
@@ -369,7 +370,7 @@ class UserHomePageState extends State<UserHomePage> {
                                     Text(
                                       product["description"],
                                       style: TextStyle(
-                                        color: Colors.grey[300],
+                                        color: Colors.grey[400],
                                         fontSize: 10,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -385,7 +386,7 @@ class UserHomePageState extends State<UserHomePage> {
                                         formattedPrice,
                                         style: TextStyle(
                                             color: Colors.grey[300],
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             overflow: TextOverflow.ellipsis),
                                       ),

@@ -7,6 +7,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/product_model
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/user_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class InputTransactionPage extends StatefulWidget {
   const InputTransactionPage({super.key});
@@ -125,7 +126,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
           'Input Transaction',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: AppColors.deepPurple,
       ),
       backgroundColor: const Color(0xFF232429),
       body: Padding(
@@ -259,10 +260,11 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
               decoration: InputDecoration(
                 labelText: 'Quantity',
                 border: const OutlineInputBorder(),
-                focusColor: Colors.cyan,
+                focusColor: AppColors.deepPurple,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -418,7 +420,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.cyan,
+                            backgroundColor: AppColors.deepPurple,
                             minimumSize: const Size.fromHeight(50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

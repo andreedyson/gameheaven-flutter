@@ -153,7 +153,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
           backgroundColor: const Color(0xFF232428),
           currentIndex: indexPage,
           onTap: onPageChanged,
-          selectedItemColor: Colors.cyan,
+          selectedItemColor: const Color(0xFFd371dd),
           unselectedItemColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           items: const [

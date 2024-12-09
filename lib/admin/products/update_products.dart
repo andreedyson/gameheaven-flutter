@@ -10,6 +10,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/brand_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/model/category_model.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class UpdateProductsPage extends StatefulWidget {
   const UpdateProductsPage({super.key});
@@ -207,7 +208,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
           'Edit Product',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: AppColors.deepPurple,
       ),
       backgroundColor: const Color(0xFF232429),
       body: Padding(
@@ -279,11 +280,11 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   decoration: InputDecoration(
                     labelText: 'Nama Produk',
                     border: const OutlineInputBorder(),
-                    focusColor: Colors.cyan,
+                    focusColor: AppColors.deepPurple,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.deepPurple, width: 2.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -413,11 +414,11 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   decoration: InputDecoration(
                     labelText: 'Harga',
                     border: const OutlineInputBorder(),
-                    focusColor: Colors.cyan,
+                    focusColor: AppColors.deepPurple,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.deepPurple, width: 2.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -439,11 +440,11 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   decoration: InputDecoration(
                     labelText: 'Deskripsi',
                     border: const OutlineInputBorder(),
-                    focusColor: Colors.cyan,
+                    focusColor: AppColors.deepPurple,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.deepPurple, width: 2.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -466,11 +467,11 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                   decoration: InputDecoration(
                     labelText: 'Stok',
                     border: const OutlineInputBorder(),
-                    focusColor: Colors.cyan,
+                    focusColor: AppColors.deepPurple,
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: AppColors.deepPurple, width: 2.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -497,16 +498,18 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     side: BorderSide(
-                      color:
-                          _imageBytes != null ? Colors.cyan : Colors.grey[400]!,
+                      color: _imageBytes != null
+                          ? AppColors.deepPurple
+                          : Colors.grey[400]!,
                       width: 1,
                     ),
                   ),
                   child: Text(
                     'Pilih Gambar',
                     style: TextStyle(
-                      color:
-                          _imageBytes != null ? Colors.cyan : Colors.grey[400],
+                      color: _imageBytes != null
+                          ? AppColors.deepPurple
+                          : Colors.grey[400],
                     ),
                   ),
                 ),
@@ -587,7 +590,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                                 }
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.cyan,
+                                backgroundColor: AppColors.deepPurple,
                                 minimumSize: const Size.fromHeight(50),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),

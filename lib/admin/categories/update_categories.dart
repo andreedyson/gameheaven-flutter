@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class UpdateCategoriesPage extends StatefulWidget {
   const UpdateCategoriesPage({super.key});
@@ -82,7 +83,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
           'Edit Category',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: AppColors.deepPurple,
       ),
       backgroundColor: const Color(0xFF232429),
       body: Padding(
@@ -110,9 +111,10 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
               decoration: InputDecoration(
                 labelText: 'Nama Kategori',
                 border: const OutlineInputBorder(),
-                focusColor: Colors.cyan,
+                focusColor: AppColors.deepPurple,
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -156,7 +158,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.cyan,
+                            backgroundColor: AppColors.deepPurple,
                             minimumSize: const Size.fromHeight(50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

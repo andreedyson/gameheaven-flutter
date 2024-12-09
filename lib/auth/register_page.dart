@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -74,7 +75,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -99,7 +101,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -124,7 +127,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -149,7 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -174,7 +179,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -250,7 +256,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.cyan,
+                      backgroundColor: const Color(0xFFbf17f1),
                       minimumSize: const Size.fromHeight(50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -280,7 +286,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     child: const Text(
                       'Login',
-                      style: TextStyle(color: Colors.cyan),
+                      style: TextStyle(color: Color(0xFFbf17f1)),
                     ))
               ],
             )

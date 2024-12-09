@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/brands/brands.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
 class UpdateBrandsPage extends StatefulWidget {
   const UpdateBrandsPage({super.key});
@@ -82,7 +83,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
           'Update Brand',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: AppColors.deepPurple,
       ),
       backgroundColor: const Color(0xFF232429),
       body: Padding(
@@ -111,9 +112,10 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
               decoration: InputDecoration(
                 labelText: 'Kode Brand',
                 border: const OutlineInputBorder(),
-                focusColor: Colors.cyan,
+                focusColor: AppColors.deepPurple,
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -134,9 +136,10 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
               decoration: InputDecoration(
                 labelText: 'Nama Brand',
                 border: const OutlineInputBorder(),
-                focusColor: Colors.cyan,
+                focusColor: AppColors.deepPurple,
                 focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey, width: 1.0),
@@ -188,7 +191,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.cyan,
+                            backgroundColor: AppColors.deepPurple,
                             minimumSize: const Size.fromHeight(50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

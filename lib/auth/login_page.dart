@@ -6,6 +6,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/register_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
 class LoginPage extends StatefulWidget {
@@ -90,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -115,7 +117,8 @@ class _LoginPageState extends State<LoginPage> {
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: const BorderSide(color: Colors.cyan, width: 2.0),
+                  borderSide:
+                      const BorderSide(color: AppColors.deepPurple, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -169,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.cyan,
+                      backgroundColor: const Color(0xFFbf17f1),
                       minimumSize: const Size.fromHeight(50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -199,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: const Text(
                       'Daftar Disini',
-                      style: TextStyle(color: Colors.cyan),
+                      style: TextStyle(color: Color(0xFFbf17f1)),
                     ))
               ],
             )
