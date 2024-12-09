@@ -51,7 +51,7 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
           backgroundColor: const Color(0xFF232428),
           currentIndex: indexPage,
           onTap: onPageChanged,
-          selectedItemColor: Colors.cyan,
+          selectedItemColor: const Color(0xFFbf17f1),
           unselectedItemColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           items: const [
