@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
+import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
 class UserProductsPage extends StatefulWidget {
@@ -21,6 +24,10 @@ class _UserProductsPageState extends State<UserProductsPage> {
 
   var userData;
 
+  List products = [];
+  List categories = [];
+  String selectedCategory = "All";
+
   Future<void> loadUserData() async {
     final data = await getUserData();
     setState(() {
@@ -28,14 +35,54 @@ class _UserProductsPageState extends State<UserProductsPage> {
     });
   }
 
+  void getProductsData() async {
+    try {
+      Response response;
+
+      response = await dio.get(getProducts);
+
+      if (response.data["status"]) {
+        var data = response.data["results"];
+        setState(() {
+          products = data;
+
+          categories = data
+              .map((product) => product["categories"]["name"])
+              .toSet()
+              .toList();
+
+          if (!categories.contains("All")) {
+            categories.insert(0, "All");
+          }
+        });
+      } else {
+        products = [];
+      }
+    } catch (e) {
+      toastification.show(
+          title: const Text("Terjadi kesalahan pada server"),
+          autoCloseDuration: const Duration(seconds: 3),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     loadUserData();
+    getProductsData();
   }
 
   @override
   Widget build(BuildContext context) {
+    final filteredProducts = selectedCategory == "All"
+        ? products
+        : products
+            .where(
+                (product) => product["categories"]["name"] == selectedCategory)
+            .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -140,13 +187,152 @@ class _UserProductsPageState extends State<UserProductsPage> {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color(0xFF242526),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-        child: Center(
-          child: Column(
-            children: [],
+        children: [
+          Container(
+            width: double.infinity,
+            height: 200,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/product_banner.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
-        ),
+          const SizedBox(height: 12),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: categories.map((category) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: ChoiceChip(
+                    label: Text(category),
+                    selected: selectedCategory == category,
+                    onSelected: (selected) {
+                      setState(() {
+                        if (category == "All") {
+                          selectedCategory = category;
+                        } else {
+                          selectedCategory = selected ? category : "All";
+                        }
+                      });
+                    },
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(height: 20),
+          // Filtered Products
+          filteredProducts.isEmpty
+              ? const Center(
+                  child: Text('No Products Found.'),
+                )
+              : GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.59,
+                  children: List.generate(filteredProducts.length, (index) {
+                    final product = filteredProducts[index];
+                    String formattedPrice = currencyFormatter(product["price"]);
+                    return GestureDetector(
+                      onTap: () {
+                        // TODO: Add Navigator to dynamic route for Product Detail page
+                      },
+                      child: Card(
+                        elevation: 2,
+                        color: Colors.grey[850],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0),
+                                  bottomLeft: Radius.circular(0.0),
+                                  bottomRight: Radius.circular(0.0),
+                                ),
+                                child: Image.network(
+                                  "$imageUrl${product['image']}",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF145da0),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Text(
+                                        product["categories"]["name"],
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 120,
+                                          child: Text(
+                                            "${product["name"]}",
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    SizedBox(
+                                      width: 100,
+                                      child: Text(
+                                        formattedPrice,
+                                        style: TextStyle(
+                                            color: Colors.grey[300],
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            overflow: TextOverflow.ellipsis),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                )
+        ],
       ),
     );
   }
