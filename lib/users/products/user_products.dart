@@ -306,7 +306,19 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 12,
+                                      height: 4,
+                                    ),
+                                    Text(
+                                        product["stocks"] > 0
+                                            ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''}"
+                                            : "Out of Stocks",
+                                        style: TextStyle(
+                                            color: Colors.grey[500],
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            overflow: TextOverflow.ellipsis)),
+                                    const SizedBox(
+                                      height: 8,
                                     ),
                                     SizedBox(
                                       width: 100,
