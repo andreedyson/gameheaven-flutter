@@ -4,7 +4,6 @@ import 'package:popover/popover.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/users/categories/user_categories.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/user_products.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/transactions/user_transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
@@ -28,7 +27,6 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
   final List pages = [
     const UserHomePage(),
     const UserProductsPage(),
-    const UserCategoriesPage(),
     const UserTransactionsPage(),
   ];
 
@@ -62,10 +60,6 @@ class _HomeUsersPageState extends State<HomeUsersPage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.conveyor_belt),
               label: 'Products',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: 'Categories',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.receipt),
