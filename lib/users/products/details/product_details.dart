@@ -76,12 +76,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      args["name"],
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        args["name"],
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
