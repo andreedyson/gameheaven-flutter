@@ -4,6 +4,7 @@ import 'package:popover/popover.dart';
 import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/details/product_details.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/user_products.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/transactions/user_transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
@@ -291,9 +292,11 @@ class UserHomePageState extends State<UserHomePage> {
                   children: List.generate(topProducts.length, (index) {
                     var product = topProducts[index];
                     String formattedPrice = currencyFormatter(product['price']);
-                    return GestureDetector(
+                    return InkWell(
                       onTap: () {
-                        // TODO: Add Navigator to dynamic route for Product Detail page
+                        Navigator.pushNamed(
+                            context, ProductDetailsPage.routeName,
+                            arguments: product);
                       },
                       child: Card(
                         elevation: 2,
@@ -391,8 +394,7 @@ class UserHomePageState extends State<UserHomePage> {
                                     ElevatedButton(
                                       onPressed: () {},
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFF8a2bab),
+                                        backgroundColor: Colors.cyan,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(4.0),
