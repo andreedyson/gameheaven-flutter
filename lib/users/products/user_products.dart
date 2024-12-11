@@ -5,6 +5,7 @@ import 'package:toastification/toastification.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/users/home_users.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/users/products/details/product_details.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
@@ -234,13 +235,16 @@ class _UserProductsPageState extends State<UserProductsPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  childAspectRatio: 0.59,
+                  childAspectRatio: 0.592,
                   children: List.generate(filteredProducts.length, (index) {
                     final product = filteredProducts[index];
                     String formattedPrice = currencyFormatter(product["price"]);
+
                     return GestureDetector(
                       onTap: () {
-                        // TODO: Add Navigator to dynamic route for Product Detail page
+                        Navigator.pushNamed(
+                            context, ProductDetailsPage.routeName,
+                            arguments: product);
                       },
                       child: Card(
                         elevation: 2,
@@ -308,28 +312,55 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    Text(
-                                        product["stocks"] > 0
-                                            ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''}"
-                                            : "Out of Stocks",
-                                        style: TextStyle(
-                                            color: Colors.grey[500],
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            overflow: TextOverflow.ellipsis)),
-                                    const SizedBox(
-                                      height: 8,
+                                    Row(
+                                      children: [
+                                        Text(
+                                            product["stocks"] > 0
+                                                ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''} •"
+                                                : "Out of Stocks •",
+                                            style: TextStyle(
+                                                color: Colors.grey[400],
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                overflow:
+                                                    TextOverflow.ellipsis)),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          product["brands"]["name"],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w800,
+                                              color: Colors.grey[400]),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(
-                                      width: 100,
-                                      child: Text(
-                                        formattedPrice,
-                                        style: TextStyle(
-                                            color: Colors.grey[300],
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            overflow: TextOverflow.ellipsis),
-                                      ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            formattedPrice,
+                                            style: TextStyle(
+                                                color: Colors.grey[300],
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {},
+                                          child: const Icon(Icons.shopping_cart,
+                                              color: Colors.cyan, size: 20),
+                                        )
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 8,

@@ -302,11 +302,6 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
                                         const SizedBox(
                                           height: 4,
                                         ),
-                                        Text(
-                                          "${transaction['username']}",
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
                                         Row(
                                           children: [
                                             Text(
