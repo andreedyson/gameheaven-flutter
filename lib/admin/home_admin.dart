@@ -8,6 +8,7 @@ import 'package:uas_pemrograman_4_22411002_andreedyson/admin/products/products.d
 import 'package:uas_pemrograman_4_22411002_andreedyson/admin/transactions/transactions.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/auth/login_page.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/helpers.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/user_data.dart';
 
@@ -146,7 +147,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               })
             ],
           ),
-          backgroundColor: const Color(0xFF333333),
+          backgroundColor: AppColors.deepPurple,
           automaticallyImplyLeading: false,
         ),
         bottomNavigationBar: BottomNavigationBar(
