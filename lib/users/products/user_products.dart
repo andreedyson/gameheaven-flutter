@@ -312,27 +312,17 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                     const SizedBox(
                                       height: 4,
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                            product["stocks"] > 0
-                                                ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''} •"
-                                                : "Out of Stocks •",
-                                            style: TextStyle(
-                                                color: Colors.grey[400],
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                overflow:
-                                                    TextOverflow.ellipsis)),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          product["brands"]["name"],
+                                    SizedBox(
+                                      width: 150,
+                                      child: Text(
+                                          product["stocks"] > 0
+                                              ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''} • ${product["brands"]["name"]}"
+                                              : "Out of Stocks • ${product["brands"]["name"]}",
                                           style: TextStyle(
+                                              color: Colors.grey[400],
                                               fontSize: 12,
-                                              fontWeight: FontWeight.w800,
-                                              color: Colors.grey[400]),
-                                        )
-                                      ],
+                                              fontWeight: FontWeight.w500,
+                                              overflow: TextOverflow.ellipsis)),
                                     ),
                                     const SizedBox(
                                       height: 12,
