@@ -517,7 +517,7 @@ class UserHomePageState extends State<UserHomePage> {
                                 size: 14,
                               ),
                               label: const Text(
-                                'Your Transaction',
+                                'Transaksi Anda',
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.black),
                               ),
@@ -599,7 +599,7 @@ class UserHomePageState extends State<UserHomePage> {
           ),
           const SizedBox(height: 32),
           const Text(
-            'Top Products',
+            'Produk Teratas',
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),
@@ -757,7 +757,7 @@ class UserHomePageState extends State<UserHomePage> {
                 ),
           const SizedBox(height: 32),
           const Text(
-            'Categories',
+            'Kategori',
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
           ),

@@ -455,7 +455,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                 size: 14,
                               ),
                               label: const Text(
-                                'Your Transaction',
+                                'Transaksi Anda',
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.black),
                               ),
@@ -641,7 +641,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                       child: Text(
                                           product["stocks"] > 0
                                               ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''} • ${product["brands"]["name"]}"
-                                              : "Out of Stocks • ${product["brands"]["name"]}",
+                                              : "Barang Habis • ${product["brands"]["name"]}",
                                           style: TextStyle(
                                               color: Colors.grey[400],
                                               fontSize: 12,

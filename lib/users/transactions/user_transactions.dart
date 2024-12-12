@@ -75,7 +75,7 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Your Transactions',
+                'Transaksi Anda',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
@@ -116,7 +116,7 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
                                   size: 14,
                                 ),
                                 label: const Text(
-                                  'Your Transaction',
+                                  'Transaksi Anda',
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.black),
                                 ),
@@ -245,7 +245,7 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Your Transactions',
+                      'Transaksi Anda',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

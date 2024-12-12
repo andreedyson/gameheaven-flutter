@@ -186,7 +186,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                             Text(
                                                 product["stocks"] > 0
                                                     ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''}"
-                                                    : "Out of Stocks",
+                                                    : "Barang Habis",
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 14)),
