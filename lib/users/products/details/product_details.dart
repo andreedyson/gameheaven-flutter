@@ -240,51 +240,59 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   const SizedBox(
                     width: 20,
                   ),
-                  SizedBox(
-                    width: 120,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (amountController.text.isEmpty) {
-                          toastification.show(
-                              context: context,
-                              title: const Text(
-                                  'Jumlah barang tidak boleh kosong!'),
-                              type: ToastificationType.error,
-                              autoCloseDuration: const Duration(seconds: 3),
-                              style: ToastificationStyle.fillColored);
-                        } else {
-                          QuickAlert.show(
-                            context: context,
-                            type: QuickAlertType.confirm,
-                            title: "Beli Produk",
-                            text:
-                                'Anda akan membeli produk ${product["name"]} dengan total harga ${currencyFormatter(product["price"] * int.tryParse(amountController.text))}',
-                            confirmBtnText: "Beli",
-                            cancelBtnText: 'Batal',
-                            confirmBtnColor: Colors.green,
-                            animType: QuickAlertAnimType.slideInDown,
-                            onConfirmBtnTap: () {
-                              Navigator.of(context).pop();
-                              insertTransactionResponse(product, context);
-                            },
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.deepPurple,
-                        minimumSize: const Size.fromHeight(50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'Simpan',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  )
+                  product["stocks"] > 0
+                      ? SizedBox(
+                          width: 120,
+                          child: isLoading
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    if (amountController.text.isEmpty) {
+                                      toastification.show(
+                                          context: context,
+                                          title: const Text(
+                                              'Jumlah barang tidak boleh kosong!'),
+                                          type: ToastificationType.error,
+                                          autoCloseDuration:
+                                              const Duration(seconds: 3),
+                                          style:
+                                              ToastificationStyle.fillColored);
+                                    } else {
+                                      QuickAlert.show(
+                                        context: context,
+                                        type: QuickAlertType.confirm,
+                                        title: "Beli Produk",
+                                        text:
+                                            'Anda akan membeli produk ${product["name"]} dengan total harga ${currencyFormatter(product["price"] * int.tryParse(amountController.text))}',
+                                        confirmBtnText: "Beli",
+                                        cancelBtnText: 'Batal',
+                                        confirmBtnColor: Colors.green,
+                                        animType:
+                                            QuickAlertAnimType.slideInDown,
+                                        onConfirmBtnTap: () {
+                                          Navigator.of(context).pop();
+                                          insertTransactionResponse(
+                                              product, context);
+                                        },
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.deepPurple,
+                                    minimumSize: const Size.fromHeight(50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Beli',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                        )
+                      : Container()
                 ],
               )
             ],
@@ -298,7 +306,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         isLoading = true;
       });
 
-      await Future.delayed(const Duration(seconds: 2));
       Response response;
 
       var transactionData = {
