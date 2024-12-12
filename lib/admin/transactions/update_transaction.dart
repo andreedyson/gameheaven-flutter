@@ -427,44 +427,36 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
                   SizedBox(
                     height: 46,
                     width: 100,
-                    child: isLoading
-                        ? const Center(
-                            child: SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: CircularProgressIndicator(),
-                            ),
-                          )
-                        : ElevatedButton(
-                            onPressed: () {
-                              QuickAlert.show(
-                                context: context,
-                                type: QuickAlertType.confirm,
-                                title: "Hapus Transaksi",
-                                text:
-                                    'Apakah anda yakin ingin menghapus transaksi ini ?',
-                                confirmBtnText: "Hapus",
-                                cancelBtnText: 'Batal',
-                                confirmBtnColor: Colors.red,
-                                animType: QuickAlertAnimType.slideInDown,
-                                onConfirmBtnTap: () {
-                                  deleteTransactionResponse(idTransaction);
-                                  Navigator.of(context).pop();
-                                },
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              minimumSize: const Size.fromHeight(50),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Text(
-                              'Hapus',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.confirm,
+                          title: "Hapus Transaksi",
+                          text:
+                              'Apakah anda yakin ingin menghapus transaksi ini ?',
+                          confirmBtnText: "Hapus",
+                          cancelBtnText: 'Batal',
+                          confirmBtnColor: Colors.red,
+                          animType: QuickAlertAnimType.slideInDown,
+                          onConfirmBtnTap: () {
+                            deleteTransactionResponse(idTransaction);
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'Hapus',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 12,
