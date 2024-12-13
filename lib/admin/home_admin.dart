@@ -42,6 +42,15 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
     loadUserData();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as int?;
+    if (args != null) {
+      indexPage = args;
+    }
+  }
+
   Future<void> loadUserData() async {
     final data = await getUserData();
     setState(() {

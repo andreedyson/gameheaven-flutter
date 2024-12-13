@@ -39,11 +39,10 @@ class _InputCategoriesPageState extends State<InputCategoriesPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 1),
-          ),
+          HomeAdminPage.routeName,
+          arguments: 1,
         );
       } else {
         toastification.show(

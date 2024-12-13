@@ -116,11 +116,10 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 2),
-          ),
+          HomeAdminPage.routeName,
+          arguments: 2,
         );
       } else {
         toastification.show(
@@ -159,11 +158,10 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 2),
-          ),
+          HomeAdminPage.routeName,
+          arguments: 2,
         );
       } else {
         toastification.show(

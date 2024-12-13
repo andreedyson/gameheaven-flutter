@@ -91,11 +91,10 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 4),
-          ),
+          HomeAdminPage.routeName,
+          arguments: 4,
         );
       } else {
         toastification.show(

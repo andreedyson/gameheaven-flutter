@@ -325,11 +325,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             style: ToastificationStyle.fillColored);
 
         Navigator.pop(dialogContext);
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeUsersPage(initialIndex: 2),
-          ),
+          HomeUsersPage.routeName,
+          arguments: 2,
         );
       } else {
         toastification.show(

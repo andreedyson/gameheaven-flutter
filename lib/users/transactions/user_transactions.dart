@@ -103,12 +103,10 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
                                     elevation: 0,
                                     backgroundColor: Colors.transparent),
                                 onPressed: () {
-                                  Navigator.pushReplacement(
+                                  Navigator.pushReplacementNamed(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomeUsersPage(initialIndex: 3),
-                                    ),
+                                    HomeUsersPage.routeName,
+                                    arguments: 3,
                                   );
                                 },
                                 icon: const Icon(

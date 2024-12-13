@@ -42,11 +42,10 @@ class _InputBrandsPageState extends State<InputBrandsPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => const HomeAdminPage(initialIndex: 3),
-          ),
+          HomeAdminPage.routeName,
+          arguments: 3,
         );
       } else {
         toastification.show(
