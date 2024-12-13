@@ -556,7 +556,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  childAspectRatio: 0.592,
+                  childAspectRatio: 0.58,
                   children: List.generate(filteredProducts.length, (index) {
                     final product = filteredProducts[index];
                     String formattedPrice = currencyFormatter(product["price"]);

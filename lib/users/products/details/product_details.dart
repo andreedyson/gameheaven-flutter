@@ -371,21 +371,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                showBuyNowDialog(args);
+                args["stocks"] > 0 ? showBuyNowDialog(args) : null;
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.cyan,
+                backgroundColor: args["stocks"] > 0
+                    ? AppColors.deepPurple
+                    : Colors.grey[800],
                 padding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.shopping_cart, size: 16, color: Colors.white),
-                  SizedBox(
+                  const Icon(Icons.shopping_cart,
+                      size: 16, color: Colors.white),
+                  const SizedBox(
                     width: 4,
                   ),
                   Text(
@@ -393,7 +396,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: args["stocks"] > 0
+                            ? Colors.white
+                            : Colors.grey[400],
+                        decoration: args["stocks"] > 0
+                            ? TextDecoration.none
+                            : TextDecoration.lineThrough,
+                        decorationColor: Colors.white),
                   )
                 ],
               ),
@@ -449,17 +458,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   children: [
                     Text(
                         args["stocks"] > 0
-                            ? "${args["stocks"]} Item${args["stocks"] > 1 ? 's' : ''} •"
-                            : "Barang Habis •",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            overflow: TextOverflow.ellipsis)),
+                            ? "${args["stocks"]} Item${args["stocks"] > 1 ? 's' : ''} "
+                            : "Barang Habis ",
+                        style: TextStyle(
+                            color:
+                                args["stocks"] > 0 ? Colors.white : Colors.red,
+                            fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 16)),
                     const SizedBox(width: 4),
                     Text(
-                      args["brands"]["name"],
+                      "• ${args["brands"]["name"]}",
                       style: TextStyle(
-                          fontWeight: FontWeight.w800, color: Colors.grey[400]),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[400],
+                          fontSize: 16),
                     )
                   ],
                 ),
