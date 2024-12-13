@@ -378,7 +378,11 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const HomeAdminPage(initialIndex: 4)));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,

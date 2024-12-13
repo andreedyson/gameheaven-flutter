@@ -427,6 +427,37 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Container(
+                    width: 100,
+                    height: 46,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const HomeAdminPage(initialIndex: 4)));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        minimumSize: const Size.fromHeight(50),
+                        shadowColor: Colors.transparent,
+                      ),
+                      child: const Text(
+                        'Batal',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
                   SizedBox(
                     height: 46,
                     width: 100,
