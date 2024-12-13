@@ -93,10 +93,10 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacementNamed(
+        Navigator.pushReplacement(
           context,
-          HomeAdminPage.routeName,
-          arguments: 4,
+          MaterialPageRoute(
+              builder: (context) => const HomeAdminPage(initialIndex: 4)),
         );
       } else {
         toastification.show(
@@ -134,10 +134,10 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacementNamed(
+        Navigator.pushReplacement(
           context,
-          HomeAdminPage.routeName,
-          arguments: 4,
+          MaterialPageRoute(
+              builder: (context) => const HomeAdminPage(initialIndex: 4)),
         );
       } else {
         toastification.show(

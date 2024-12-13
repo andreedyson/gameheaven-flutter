@@ -113,10 +113,10 @@ class _InputProductsPageState extends State<InputProductsPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushReplacementNamed(
+        Navigator.pushReplacement(
           context,
-          HomeAdminPage.routeName,
-          arguments: 2,
+          MaterialPageRoute(
+              builder: (context) => const HomeAdminPage(initialIndex: 2)),
         );
       } else {
         toastification.show(

@@ -334,10 +334,10 @@ class _UserProductsPageState extends State<UserProductsPage> {
             style: ToastificationStyle.fillColored);
 
         Navigator.pop(dialogContext);
-        Navigator.pushReplacementNamed(
+        Navigator.pushReplacement(
           context,
-          HomeUsersPage.routeName,
-          arguments: 2,
+          MaterialPageRoute(
+              builder: (context) => const HomeUsersPage(initialIndex: 2)),
         );
       } else {
         toastification.show(
@@ -441,10 +441,11 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                   elevation: 0,
                                   backgroundColor: Colors.transparent),
                               onPressed: () {
-                                Navigator.pushReplacementNamed(
+                                Navigator.pushReplacement(
                                   context,
-                                  HomeUsersPage.routeName,
-                                  arguments: 3,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeUsersPage(initialIndex: 3)),
                                 );
                               },
                               icon: const Icon(

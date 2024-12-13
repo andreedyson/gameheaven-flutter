@@ -434,10 +434,10 @@ class UserHomePageState extends State<UserHomePage> {
             style: ToastificationStyle.fillColored);
 
         Navigator.pop(dialogContext);
-        Navigator.pushReplacementNamed(
+        Navigator.pushReplacement(
           context,
-          HomeUsersPage.routeName,
-          arguments: 2,
+          MaterialPageRoute(
+              builder: (context) => const HomeUsersPage(initialIndex: 2)),
         );
       } else {
         toastification.show(
@@ -503,10 +503,11 @@ class UserHomePageState extends State<UserHomePage> {
                                   elevation: 0,
                                   backgroundColor: Colors.transparent),
                               onPressed: () {
-                                Navigator.pushReplacementNamed(
+                                Navigator.pushReplacement(
                                   context,
-                                  HomeUsersPage.routeName,
-                                  arguments: 3,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeUsersPage(initialIndex: 2)),
                                 );
                               },
                               icon: const Icon(
@@ -576,10 +577,10 @@ class UserHomePageState extends State<UserHomePage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacementNamed(
+              Navigator.pushReplacement(
                 context,
-                HomeUsersPage.routeName,
-                arguments: 1,
+                MaterialPageRoute(
+                    builder: (context) => const HomeUsersPage(initialIndex: 1)),
               );
             },
             child: Container(
