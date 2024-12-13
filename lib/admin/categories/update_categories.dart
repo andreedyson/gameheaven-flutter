@@ -20,7 +20,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
 
   TextEditingController nameController = TextEditingController();
 
-  void editCategryResponse(idCategory) async {
+  void editCategoryResponse(idCategory) async {
     try {
       setState(() {
         isLoading = true;
@@ -154,7 +154,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
                                   autoCloseDuration: const Duration(seconds: 3),
                                   style: ToastificationStyle.fillColored);
                             } else {
-                              editCategryResponse(idCategory);
+                              editCategoryResponse(idCategory);
                             }
                           },
                           style: ElevatedButton.styleFrom(

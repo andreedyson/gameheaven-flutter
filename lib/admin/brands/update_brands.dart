@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-import 'package:uas_pemrograman_4_22411002_andreedyson/admin/brands/brands.dart';
+import 'package:uas_pemrograman_4_22411002_andreedyson/admin/home_admin.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/service/api.dart';
 import 'package:uas_pemrograman_4_22411002_andreedyson/utils/constants.dart';
 
@@ -42,7 +42,12 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
             type: ToastificationType.success,
             style: ToastificationStyle.fillColored);
 
-        Navigator.pushNamed(context, BrandsPage.routeName);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeAdminPage(initialIndex: 3),
+          ),
+        );
       } else {
         toastification.show(
             title: Text(response.data['message']),

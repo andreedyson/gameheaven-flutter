@@ -101,7 +101,10 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
         );
       } else {
         toastification.show(
-            title: Text(response.data['message']),
+            description: Text(
+              response.data['message'],
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             autoCloseDuration: const Duration(seconds: 3),
             type: ToastificationType.error,
             style: ToastificationStyle.fillColored);
@@ -163,14 +166,16 @@ class _UpdateTransactionPageState extends State<UpdateTransactionPage> {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
     idTransaction = args["id_transactions"];
-    int quantity = args["quantity"];
+    String quantity = args["quantity"].toString();
     _selectedProduct =
         _selectedProduct ?? ProductModel.fromJson(args["products"]);
     _selectedUser = _selectedUser ?? UserModel.fromJson(args["users"]);
     _selectedStatus = _selectedStatus ?? args["status"];
     _selectedDate = _selectedDate ?? DateTime.parse(args["date"]);
 
-    qtyController.text = quantity.toString();
+    if (qtyController.text.isEmpty) {
+      qtyController.text = quantity;
+    }
 
     return Scaffold(
         appBar: AppBar(

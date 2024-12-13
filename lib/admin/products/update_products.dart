@@ -191,11 +191,21 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
     int idProduct = args["id_product"];
-    nameController.text = args["name"];
-    priceController.text = args["price"].toString();
-    descriptionController.text = args["description"];
-    stocksController.text = args["stocks"].toString();
+    String name = args["name"];
+    String price = args["price"].toString();
+    String description = args["description"];
+    String stocks = args["stocks"].toString();
     String image = args["image"];
+
+    if (nameController.text.isEmpty ||
+        priceController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        stocksController.text.isEmpty) {
+      nameController.text = name;
+      priceController.text = price;
+      descriptionController.text = description;
+      stocksController.text = stocks;
+    }
 
     _selectedCategory =
         _selectedCategory ?? CategoryModel.fromJson(args["categories"]);
