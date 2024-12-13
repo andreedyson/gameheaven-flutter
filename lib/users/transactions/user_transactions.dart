@@ -108,7 +108,7 @@ class _UserTransactionsPageState extends State<UserTransactionsPage> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const HomeUsersPage(
-                                                initialIndex: 3)),
+                                                initialIndex: 2)),
                                   );
                                 },
                                 icon: const Icon(

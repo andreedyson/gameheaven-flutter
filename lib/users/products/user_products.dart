@@ -445,7 +445,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const HomeUsersPage(initialIndex: 3)),
+                                          const HomeUsersPage(initialIndex: 2)),
                                 );
                               },
                               icon: const Icon(

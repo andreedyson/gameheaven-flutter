@@ -580,7 +580,7 @@ class UserHomePageState extends State<UserHomePage> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const HomeUsersPage(initialIndex: 1)),
+                    builder: (context) => const HomeUsersPage(initialIndex: 2)),
               );
             },
             child: Container(
