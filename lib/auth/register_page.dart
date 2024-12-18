@@ -39,6 +39,26 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Daftarkan Akun',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Text(
+                  'Buat akun baru untuk masuk ke dalam aplikasi GameHeaven.',
+                  style: TextStyle(
+                      color: Colors.grey[400], fontWeight: FontWeight.w100),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 TextField(
                   controller: usernameController,
                   decoration: InputDecoration(

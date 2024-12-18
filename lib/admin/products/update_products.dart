@@ -119,7 +119,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => const HomeAdminPage(initialIndex: 2)),
+              builder: (context) => const HomeAdminPage(initialIndex: 3)),
         );
       } else {
         toastification.show(
@@ -161,7 +161,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => const HomeAdminPage(initialIndex: 2)),
+              builder: (context) => const HomeAdminPage(initialIndex: 3)),
         );
       } else {
         toastification.show(
@@ -256,7 +256,7 @@ class _InputProductsPageState extends State<UpdateProductsPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const HomeAdminPage(initialIndex: 2)));
+                                      const HomeAdminPage(initialIndex: 3)));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,

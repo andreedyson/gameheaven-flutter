@@ -45,7 +45,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => const HomeAdminPage(initialIndex: 3)),
+              builder: (context) => const HomeAdminPage(initialIndex: 2)),
         );
       } else {
         toastification.show(
@@ -174,7 +174,7 @@ class _UpdateBrandsPageState extends State<UpdateBrandsPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  const HomeAdminPage(initialIndex: 3)));
+                                  const HomeAdminPage(initialIndex: 2)));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,

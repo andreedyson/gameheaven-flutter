@@ -155,7 +155,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: ListTile(
-                      title: Text(item.fullname),
+                      title: Text("${item.fullname} (${item.username})"),
                     ),
                   );
                 },
@@ -188,7 +188,7 @@ class _InputTransactionPageState extends State<InputTransactionPage> {
               selectedItem: _selectedUser,
               dropdownBuilder: (BuildContext context, UserModel? selectedItem) {
                 return Text(
-                  selectedItem?.fullname ?? "Select Users",
+                  selectedItem?.username ?? "Select Users",
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,

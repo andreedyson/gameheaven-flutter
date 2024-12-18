@@ -55,6 +55,26 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Login Aplikasi',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                Text(
+                  'Masukkan data kredensial anda untuk mengakses aplikasi.',
+                  style: TextStyle(
+                      color: Colors.grey[400], fontWeight: FontWeight.w100),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 TextField(
                   controller: usernameController,
                   decoration: InputDecoration(

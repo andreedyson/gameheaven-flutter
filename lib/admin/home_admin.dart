@@ -30,8 +30,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
   final List pages = [
     const HomePage(),
     const CategoriesPage(),
-    const ProductsPage(),
     const BrandsPage(),
+    const ProductsPage(),
     const TransactionsPage(),
   ];
 
@@ -167,12 +167,12 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
               label: 'Categories',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.conveyor_belt),
-              label: 'Products',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.branding_watermark),
               label: 'Brands',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.conveyor_belt),
+              label: 'Products',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.receipt),

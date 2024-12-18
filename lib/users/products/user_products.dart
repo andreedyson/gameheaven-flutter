@@ -641,7 +641,9 @@ class _UserProductsPageState extends State<UserProductsPage> {
                                               ? "${product["stocks"]} Item${product["stocks"] > 1 ? 's' : ''} • ${product["brands"]["name"]}"
                                               : "Barang Habis • ${product["brands"]["name"]}",
                                           style: TextStyle(
-                                              color: Colors.grey[400],
+                                              color: product["stocks"] > 0
+                                                  ? Colors.green
+                                                  : Colors.red,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
                                               overflow: TextOverflow.ellipsis)),
