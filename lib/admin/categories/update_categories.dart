@@ -135,7 +135,7 @@ class _UpdateCategoriesPageState extends State<UpdateCategoriesPage> {
                   width: 100,
                   height: 46,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red, width: 2),
+                    border: Border.all(color: Colors.grey, width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: ElevatedButton(

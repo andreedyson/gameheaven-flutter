@@ -216,7 +216,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   Container(
                     width: 120,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 2),
+                      border: Border.all(color: Colors.grey, width: 2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ElevatedButton(

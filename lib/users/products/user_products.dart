@@ -225,7 +225,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
                   Container(
                     width: 120,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 2),
+                      border: Border.all(color: Colors.grey, width: 2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ElevatedButton(

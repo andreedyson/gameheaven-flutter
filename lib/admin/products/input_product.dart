@@ -116,7 +116,7 @@ class _InputProductsPageState extends State<InputProductsPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => const HomeAdminPage(initialIndex: 2)),
+              builder: (context) => const HomeAdminPage(initialIndex: 3)),
         );
       } else {
         toastification.show(
@@ -437,7 +437,7 @@ class _InputProductsPageState extends State<InputProductsPage> {
                       width: 100,
                       height: 46,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.red, width: 2),
+                        border: Border.all(color: Colors.grey, width: 2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: ElevatedButton(
@@ -446,7 +446,7 @@ class _InputProductsPageState extends State<InputProductsPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const HomeAdminPage(initialIndex: 2)));
+                                      const HomeAdminPage(initialIndex: 3)));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
