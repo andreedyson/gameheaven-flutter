@@ -25,6 +25,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   Future<void> loadUserData() async {
     final data = await getUserData();
+
     setState(() {
       userData = data;
     });
@@ -338,6 +339,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             style: ToastificationStyle.fillColored);
       }
     } catch (e) {
+      print(e);
       toastification.show(
           title: const Text("Terjadi kesalahan pada server"),
           autoCloseDuration: const Duration(seconds: 3),
@@ -348,6 +350,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         isLoading = false;
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
   }
 
   @override

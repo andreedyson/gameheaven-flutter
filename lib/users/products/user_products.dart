@@ -347,6 +347,7 @@ class _UserProductsPageState extends State<UserProductsPage> {
             style: ToastificationStyle.fillColored);
       }
     } catch (e) {
+      print(e);
       toastification.show(
           title: const Text("Terjadi kesalahan pada server"),
           autoCloseDuration: const Duration(seconds: 3),
